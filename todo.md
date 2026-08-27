@@ -36,18 +36,18 @@
 
 ## GitHub Pages 直接瀏覽
 
-- [ ] 檢查 repository 名稱與 GitHub Pages 可用設定。
-- [ ] 調整 Vite base path 與 GitHub Pages SPA fallback。
-- [ ] 建立 GitHub Actions 靜態部署流程。
-- [ ] 確認建置資產與 Manus 靜態資產在 GitHub Pages 的相容性。
-- [ ] 推送部署設定並等待 Pages 建置完成。
-- [ ] 驗證 github.io 直接瀏覽網址。
+- [x] 檢查 repository 名稱與 GitHub Pages 可用設定。
+- [x] 調整 Vite base path 與 GitHub Pages SPA fallback。
+- [x] 建立 GitHub Actions 靜態部署流程。
+- [x] 確認建置資產與 Manus 靜態資產在 GitHub Pages 的相容性。
+- [x] 推送部署設定並等待 Pages 建置完成。
+- [x] 驗證 github.io 直接瀏覽網址。
 
 ## 公開 GitHub Pages 設定
 
-- [ ] 將 GitHub repository 改為 public。
-- [ ] 設定 GitHub Pages 建置來源與 Actions 權限。
-- [ ] 讓 Vite 以 repository 子路徑產出資產 URL。
-- [ ] 補上 GitHub Pages 的 SPA fallback 與必要靜態資產處理。
-- [ ] 推送 workflow 並等待部署完成。
-- [ ] 驗證公開 github.io 網址、首頁資產與 modal 導覽。
+- [x] 將 GitHub repository 改為 public。
+- [x] 設定 GitHub Pages 建置來源與 Actions 權限。
+- [x] 讓 Vite 以 repository 子路徑產出資產 URL。
+- [x] 補上 GitHub Pages 的 SPA fallback 與必要靜態資產處理。
+- [x] 推送 workflow 並等待部署完成。
+- [x] 驗證公開 github.io 網址、首頁資產與 modal 導覽。
