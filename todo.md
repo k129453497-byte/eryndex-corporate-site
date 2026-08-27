@@ -1,7 +1,7 @@
-# 視覺修正任務
+# 產品視覺對應任務
 
-- [x] 讓訊號點沿綠色與紫色軌道交替旋轉，具備不同方向與節奏
-- [x] 為 Qadryn、Vessyra、Mireqon、Terviq 建立不同圖形與移動軌跡
-- [x] 統一產品卡與解決方案區的 icon 語言、尺寸與線條規格
-- [x] 驗證桌機與手機版的動態圖形、排版與 reduced-motion
-- [x] 通過 production build 並保存可供確認的新版 checkpoint
+- [x] 盤點四項產品目前 icon 與 ProductVisual 的渲染結構
+- [x] 將 Qadryn、Vessyra、Mireqon、Terviq 的核心圖形改為對應產品 icon 幾何
+- [x] 讓每個產品的光點沿自身核心圖形運行，並保留差異化節奏
+- [x] 驗證產品卡與詳細頁的視覺、可讀性與 reduced-motion
+- [x] 通過 production build 並保存新版 checkpoint

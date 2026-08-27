@@ -157,7 +157,7 @@ function ProductVisual({ product, detail = false }: { product: Product; detail?:
   const { lang } = useSite();
   const visualLabel = tx(product.name, lang);
   return <div className={`${detail ? "detail-visual" : "product-image-wrap"} product-${product.slug}`}>
-    <div className="visual-fallback" role="img" aria-label={visualLabel} data-visual-source="Eryndex signal diagram"><span className="fallback-orbit" /><span className="fallback-orbit orbit-small" /><span className="fallback-core" /><span className="fallback-path path-one" /><span className="fallback-path path-two" /><span className="fallback-status">EDX / {product.number} · SIGNAL READY</span><span className="ai-pulse" /><span className="signal-cursor" /></div>
+    <div className="visual-fallback" role="img" aria-label={visualLabel} data-visual-source="Eryndex signal diagram"><span className="fallback-orbit" /><span className="fallback-orbit orbit-small" /><span className={`fallback-core symbol-${product.slug}`} aria-hidden="true" /><span className="fallback-path path-one" /><span className="fallback-path path-two" /><span className="fallback-status">EDX / {product.number} · SIGNAL READY</span><span className="ai-pulse" /><span className="signal-cursor" /></div>
     <span className={detail ? "visual-caption" : "image-index"}>{detail ? `EDX / ${product.number} · PRODUCT SIGNAL` : `EDX / ${product.number}`}</span>
   </div>;
 }
