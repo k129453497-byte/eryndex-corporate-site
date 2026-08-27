@@ -1,4 +1,4 @@
-// NEXORA Signal Atelier｜全站語言狀態。此檔案只負責讓三語內容在所有頁面間保持一致，不承擔視覺樣式。
+// Eryndex Signal Atelier｜全站語言狀態。此檔案只負責讓三語內容在所有頁面間保持一致，不承擔視覺樣式。
 import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
 
 export type Lang = "zh-TW" | "zh-CN" | "en";

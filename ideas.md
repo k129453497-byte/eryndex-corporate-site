@@ -1,4 +1,4 @@
-# NEXORA 智核科技｜網站設計提案
+# Eryndex 智序科技｜網站設計提案
 
 ## 三種視覺方向
 
@@ -46,7 +46,7 @@ Probability: 0.08
 英文與數字使用 Space Grotesk，形成具有工程感但仍友善的標題與數據語彙；繁體中文與簡體中文使用 Noto Sans TC / Noto Sans SC，確保字形完整與長文閱讀性。H1 使用 clamp(2.7rem, 7vw, 6.8rem)，字距 -0.06em；H2 使用 clamp(2rem, 4vw, 4.2rem)，字距 -0.04em；內文最大寬度 42rem，行高 1.8；系統標籤使用 0.68rem、0.16em letter-spacing、全大寫。
 
 ### Brand Essence
-NEXORA 智核科技是為中小型企業打造的 AI 工作系統，讓自動化、安全與營運洞察在同一個清晰脈絡裡運作；它不販售遙遠的未來，而是讓今天的工作更有餘裕。
+Eryndex 智序科技是為中小型企業打造的 AI 工作系統，讓自動化、安全與營運洞察在同一個清晰脈絡裡運作；它不販售遙遠的未來，而是讓今天的工作更有餘裕。
 
 Personality adjectives: 清醒、可靠、前瞻
 
@@ -58,14 +58,14 @@ Example lines:
 - 「看見每一筆資料如何成為下一個決策。」
 
 ### Wordmark & Logo
-Logo 使用由四個切角模組組成的抽象「N」符號：兩條垂直資料軌由一條斜向連線接起，形成可辨識的核心水平線。標誌不含文字，深色版以電光青藍與白色雙色呈現，淺色版以深海藍與青藍呈現；字標以 Space Grotesk SemiBold 的自訂字距呈現「NEXORA」，中文副標採 Noto Sans TC Medium。
+Logo 使用由四個切角模組組成的抽象「N」符號：兩條垂直資料軌由一條斜向連線接起，形成可辨識的核心水平線。標誌不含文字，深色版以電光青藍與白色雙色呈現，淺色版以深海藍與青藍呈現；字標以 Space Grotesk SemiBold 的自訂字距呈現「Eryndex」，中文副標採 Noto Sans TC Medium。
 
 ### Signature Brand Color
 **Signal Cyan — #62E7FF**。它不是裝飾用霓虹，而是代表資訊被理解、流程開始流動的可視化訊號；只用於狀態、焦點、關鍵 CTA 與品牌標記。
 
 ## 內容與命名決策
 
-為降低與既有品牌混淆的風險，四項產品採用本案專屬的描述性命名：**Nexora Pulse**（AI 工作流程自動化）、**Nexora Aegis**（資料安全與權限管理）、**Nexora Lattice**（營運分析儀表板）、**Nexora Foundry**（企業內部 AI 邊緣運算設備）。網站內容只使用示範聯絡資訊與清楚標記的 Example / Demo 說明，不捏造客戶、營收、合作夥伴、排名或未證實成果。
+為降低與既有品牌混淆的風險，四項產品採用本案專屬的描述性命名：**Qadryn**（AI 工作流程自動化）、**Vessyra**（資料安全與權限管理）、**Mireqon**（營運分析儀表板）、**Terviq**（企業內部 AI 邊緣運算設備）。網站內容只使用示範聯絡資訊與清楚標記的 Example / Demo 說明，不捏造客戶、營收、合作夥伴、排名或未證實成果。
 
 ## Style Decisions
 
@@ -74,5 +74,5 @@ Logo 使用由四個切角模組組成的抽象「N」符號：兩條垂直資�
 - 所有主要互動需兼顧鍵盤操作、可見 focus ring、足夠文字對比與 reduced-motion。
 
 - Signal Cyan `#62E7FF` reserved for actions, selected states, signal nodes, key terms, and important numerals; large headline coloration is used only when the highlighted word is the conceptual turning point.
-- Every product visual must be a distinct abstract system diagram or glass-console state for that product, not a generic tech image block, while sharing the same NEXORA rails, nodes, labels, and dark material language. If generated media is unavailable, the product-specific CSS signal diagram preserves this requirement without exposing an error state.
-- Secondary light-background sections are documentation mode only and retain NEXORA’s signal rail, system-label, and thin-line information structure.
+- Every product visual must be a distinct abstract system diagram or glass-console state for that product, not a generic tech image block, while sharing the same Eryndex rails, nodes, labels, and dark material language. If generated media is unavailable, the product-specific CSS signal diagram preserves this requirement without exposing an error state.
+- Secondary light-background sections are documentation mode only and retain Eryndex’s signal rail, system-label, and thin-line information structure.

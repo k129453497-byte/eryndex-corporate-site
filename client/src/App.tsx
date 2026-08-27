@@ -1,4 +1,4 @@
-// NEXORA Signal Atelier｜全站外框。固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口。
+// Eryndex Signal Atelier｜全站外框。固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口。
 import { useState } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -39,9 +39,9 @@ function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link href="/" className="brand" onClick={onNav} aria-label="NEXORA 智核科技 home">
+        <Link href="/" className="brand" onClick={onNav} aria-label="Eryndex 智序科技 home">
           <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/nexora-mark-light_0a986db5.png" alt="" /></span>
-          <span className="brand-lockup"><strong>NEXORA</strong><small>智核科技</small></span>
+          <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
         </Link>
         <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open}>
           {open ? <X size={22} /> : <Menu size={22} />}
@@ -73,16 +73,16 @@ function Footer() {
         <div className="footer-brand-col">
           <Link href="/" className="brand footer-brand">
             <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/nexora-mark-light_0a986db5.png" alt="" /></span>
-            <span className="brand-lockup"><strong>NEXORA</strong><small>智核科技</small></span>
+            <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
           <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長。" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长。" : "Let technology understand work, so businesses can focus on growth."}</p>
           <div className="footer-status"><i /> {lang === "en" ? "Systems designed for the work ahead" : lang === "zh-CN" ? "为未来工作而设计的系统" : "為下一步工作而設計的系統"}</div>
         </div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Explore" : lang === "zh-CN" ? "探索" : "探索"}</p><Link href="/about">{navCopy.about[lang]}</Link><Link href="/products">{navCopy.products[lang]}</Link><Link href="/solutions">{navCopy.solutions[lang]}</Link><Link href="/resources">{navCopy.resources[lang]}</Link></div>
-        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Connect" : lang === "zh-CN" ? "联系" : "聯絡"}</p><Link href="/contact">{navCopy.contact[lang]}</Link><a href="mailto:hello@nexora.example">hello@nexora.example</a><span>+886 2 7700 2840</span></div>
-        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Notes" : lang === "zh-CN" ? "说明" : "說明"}</p><Link href="/making">{navCopy.making[lang]}</Link><span>{lang === "en" ? "Demo content only" : lang === "zh-CN" ? "仅供演示" : "僅供示範"}</span><span>© 2026 NEXORA</span></div>
+        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Connect" : lang === "zh-CN" ? "联系" : "聯絡"}</p><Link href="/contact">{navCopy.contact[lang]}</Link><a href="mailto:hello@eryndex.example">hello@eryndex.example</a><span>+886 2 7700 2840</span></div>
+        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Notes" : lang === "zh-CN" ? "说明" : "說明"}</p><Link href="/making">{navCopy.making[lang]}</Link><span>{lang === "en" ? "Demo content only" : lang === "zh-CN" ? "仅供演示" : "僅供示範"}</span><span>© 2026 Eryndex</span></div>
       </div>
-      <div className="container footer-bottom"><span>台北 · Taipei</span><span>NXR / 2026.08</span></div>
+      <div className="container footer-bottom"><span>台北 · Taipei</span><span>EDX / 2026.08</span></div>
     </footer>
   );
 }
