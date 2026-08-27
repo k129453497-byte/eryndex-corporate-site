@@ -4,9 +4,12 @@ Eryndex 智序科技是一個面向中小型企業的多語 B2B 科技公司網�
 
 ## Live site
 
-- Website: https://nexoracorp-mfb35dfs.manus.space
+- Manus Website: https://nexoracorp-mfb35dfs.manus.space
+- GitHub Pages: https://k129453497-byte.github.io/eryndex-corporate-site/
 - Languages: 繁體中文（台灣用語）、简体中文、English
 - Architecture: React 19 + TypeScript + Vite + Tailwind CSS 4 + Wouter
+
+GitHub Pages 由 `.github/workflows/deploy-pages.yml` 在 `main` 分支更新時自動建置與發布；網站使用 repository base path，並保留 404 fallback 以支援直接開啟 modal 子路徑。
 
 ## Website architecture PDF
 

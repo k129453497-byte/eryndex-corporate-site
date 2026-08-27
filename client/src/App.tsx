@@ -139,7 +139,7 @@ export default function App() {
         <SiteProvider>
           <TooltipProvider>
             <Toaster theme="dark" position="bottom-right" />
-            <WouterRouter base={import.meta.env.BASE_URL}><SiteShell /></WouterRouter>
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}><SiteShell /></WouterRouter>
           </TooltipProvider>
         </SiteProvider>
       </ThemeProvider>
