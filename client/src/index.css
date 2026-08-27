@@ -493,3 +493,35 @@ body.modal-open { overflow: hidden; }
 .visual-qadryn .process-dot.route-dot-c { fill: #f8f6ff; stroke: var(--violet); filter: drop-shadow(0 0 5px var(--violet)); }
 .visual-qadryn .process-nodes rect { transition: fill 180ms var(--ease-out), stroke 180ms var(--ease-out); }
 @media (prefers-reduced-motion: reduce) { .visual-qadryn .process-route, .visual-qadryn .process-dot, .visual-qadryn .process-nodes rect { animation: none !important; } }
+
+
+/* Eryndex Vessyra security v2｜網格偵測 → 閘門驗證 → 核心鎖定。 */
+.visual-vessyra .security-grid .grid-plane { fill: rgba(105,230,193,.018); stroke: rgba(105,230,193,.2); stroke-width: .55; }
+.visual-vessyra .security-grid .grid-lines { fill: none; stroke: rgba(105,230,193,.24); stroke-width: .45; stroke-dasharray: 2 5; animation: grid-drift 14s linear infinite; }
+.visual-vessyra .security-grid .grid-sweep { fill: none; stroke: rgba(105,230,193,.78); stroke-width: .72; stroke-dasharray: 16 22; animation: grid-sweep-flow 5s linear infinite; }
+.visual-vessyra .security-grid .grid-sweep-reverse { stroke: rgba(163,139,255,.7); animation-duration: 7.4s; animation-direction: reverse; }
+.visual-vessyra .security-perimeter { fill: rgba(98,231,255,.015); stroke: rgba(98,231,255,.45); stroke-width: .6; stroke-dasharray: 1 4; transform-box: fill-box; transform-origin: center; animation: perimeter-turn 18s linear infinite; }
+.visual-vessyra .security-gates { transform-box: fill-box; transform-origin: center; }
+.visual-vessyra .gate-frame { fill: rgba(7,17,31,.04); stroke-width: .72; stroke-linejoin: round; stroke-dasharray: 22 8 6 12; transform-box: fill-box; transform-origin: center; }
+.visual-vessyra .gate-outer { stroke: var(--mint); opacity: .76; animation: gate-outer-lock 8.5s ease-in-out infinite; }
+.visual-vessyra .gate-middle { stroke: var(--cyan); opacity: .65; animation: gate-middle-lock 7s ease-in-out infinite reverse; }
+.visual-vessyra .gate-inner { stroke: var(--violet); opacity: .82; stroke-dasharray: 15 6 3 8; animation: gate-inner-lock 5.8s ease-in-out infinite; }
+.visual-vessyra .gate-corners path { fill: none; stroke: rgba(98,231,255,.65); stroke-width: .75; stroke-linecap: square; stroke-dasharray: 12 8; opacity: .7; animation: corner-brace 6.5s linear infinite; }
+.visual-vessyra .gate-corners .corner-inner { stroke: rgba(163,139,255,.68); stroke-dasharray: 7 7; animation-duration: 4.8s; animation-direction: reverse; }
+.visual-vessyra .security-scan { fill: none; stroke: var(--mint); stroke-width: .55; stroke-dasharray: 7 18; opacity: .72; animation: security-scan-pass 4.2s linear infinite; }
+.visual-vessyra .scan-vertical { stroke: var(--violet); animation-duration: 6.2s; animation-direction: reverse; }
+.visual-vessyra .security-core { transform-box: fill-box; transform-origin: center; animation: core-lock-pulse 5.8s ease-in-out infinite; }
+.visual-vessyra .core-shield { fill: rgba(105,230,193,.1); stroke: #d8fff3; stroke-width: .7; stroke-linejoin: round; }
+.visual-vessyra .core-lock-body { fill: rgba(7,17,31,.7); stroke: var(--cyan); stroke-width: .75; }
+.visual-vessyra .core-lock-arch { fill: none; stroke: var(--cyan); stroke-width: .9; stroke-linecap: round; }
+.visual-vessyra .security-state rect { fill: var(--mint); opacity: .38; animation: security-state-breathe 4.2s ease-in-out infinite; }
+.visual-vessyra .security-state rect:nth-child(2) { fill: var(--violet); animation-delay: -2s; }
+@keyframes perimeter-turn { to { transform: rotate(360deg); } }
+@keyframes gate-outer-lock { 0%,100% { transform: rotate(-2deg) scale(.94); opacity: .42; } 35% { transform: rotate(2deg) scale(1.02); opacity: .84; } 52% { transform: rotate(0deg) scale(1.02); opacity: .9; } 70% { transform: rotate(-1deg) scale(.97); opacity: .66; } }
+@keyframes gate-middle-lock { 0%,100% { transform: rotate(3deg) scale(1.02); opacity: .38; } 38% { transform: rotate(-3deg) scale(.95); opacity: .72; } 58% { transform: rotate(0deg) scale(1); opacity: .9; } 78% { transform: rotate(2deg) scale(.98); opacity: .55; } }
+@keyframes gate-inner-lock { 0%,100% { transform: rotate(-4deg) scale(.9); opacity: .36; } 44% { transform: rotate(4deg) scale(1.06); opacity: .88; } 63% { transform: rotate(0deg) scale(1); opacity: 1; } 82% { transform: rotate(-2deg) scale(.95); opacity: .6; } }
+@keyframes corner-brace { to { stroke-dashoffset: -46; } }
+@keyframes security-scan-pass { to { stroke-dashoffset: -50; } }
+@keyframes core-lock-pulse { 0%,100% { transform: scale(.93); opacity: .58; } 47% { transform: scale(1.04); opacity: 1; } 64% { transform: scale(1); opacity: .9; } }
+@keyframes security-state-breathe { 0%,100% { opacity: .28; transform: scaleX(.78); transform-origin: left center; } 50% { opacity: .92; transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .visual-vessyra .security-grid .grid-lines, .visual-vessyra .security-grid .grid-sweep, .visual-vessyra .security-perimeter, .visual-vessyra .gate-frame, .visual-vessyra .gate-corners path, .visual-vessyra .security-scan, .visual-vessyra .security-core, .visual-vessyra .security-state rect { animation: none !important; } }
