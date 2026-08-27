@@ -545,3 +545,7 @@ body.modal-open { overflow: hidden; }
 @keyframes solution-core-breathe { 0%,100% { transform: translate(-50%, -50%) scale(.96); opacity: .78; } 50% { transform: translate(-50%, -50%) scale(1.04); opacity: 1; } }
 @media (max-width: 720px) { .solution-icon-orbit { width: 138px; height: 138px; }.solution-icon-orbit.orbit-secondary { width: 112px; height: 112px; }.solution-icon-core { width: 82px; height: 82px; }.solution-icon-core svg { width: 48px; height: 48px; }.solution-product-fallback::before { inset: 14px; }.solution-signal-label { right: 12px; bottom: 11px; font-size: .5rem; } }
 @media (prefers-reduced-motion: reduce) { .solution-icon-orbit, .solution-icon-core { animation: none !important; } }
+
+
+/* Eryndex brand core｜理念區使用與頁首相同的公司 Logo，保持品牌識別一致。 */
+.principle-brand-mark { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 0 7px rgba(98,231,255,.7)); transform: rotate(-10deg); }
