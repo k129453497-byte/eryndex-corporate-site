@@ -70,7 +70,7 @@
 
 ## 補充 grill-me Skill
 
-- [ ] 讀取 grill-me Skill 說明並確認適合的製作用途。
-- [ ] 將 grill-me 補進三語網站 Skills 文案。
-- [ ] 同步修改 Signal Atelier PDF 內容並重新上傳資產。
-- [ ] 驗證網站、PDF、build 與 GitHub Pages 部署。
+- [x] 讀取 grill-me Skill 說明並確認適合的製作用途。
+- [x] 將 grill-me 補進三語網站 Skills 文案。
+- [x] 同步修改 Signal Atelier PDF 內容並重新上傳資產。
+- [x] 驗證網站、PDF、build 與 GitHub Pages 部署。
