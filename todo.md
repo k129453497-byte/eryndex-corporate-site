@@ -1,8 +1,8 @@
-# 四項產品視覺重做
+# 產品視覺微調
 
-- [x] 盤點 ProductVisual 的 SVG 與 CSS 結構
-- [x] Qadryn 改為多節點流程，光點穿梭節點與分岔
-- [x] Vessyra 改為多層盾牌錯位運轉，不使用光點
-- [x] Mireqon 改為儀表板、圖表與數值狀態平滑更新
-- [x] Terviq 改為 CPU 核心向外發送電子訊號
-- [x] 驗證 icon 對應、手機版、reduced-motion、build 與新版預覽
+- [x] 盤點 Qadryn、Vessyra、Terviq 既有 SVG 圖形與動畫結構
+- [x] Qadryn 改用小正方形流程節點，光點抵達節點時停頓
+- [x] Vessyra 改為同尺寸、不同形狀的盾牌交疊運轉
+- [x] Terviq 加強電路板路徑，讓訊號有進有出且錯落發送
+- [x] 保留 Mireqon 現況，驗證桌機／手機／reduced-motion 與 build
+- [x] 保存新版 checkpoint 並提供預覽

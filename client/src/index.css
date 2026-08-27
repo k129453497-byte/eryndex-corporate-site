@@ -449,3 +449,16 @@ body.modal-open { overflow: hidden; }
 .product-mireqon .fallback-orbit, .product-mireqon .fallback-core, .product-mireqon .fallback-path, .product-mireqon .signal-cursor,
 .product-terviq .fallback-orbit, .product-terviq .fallback-core, .product-terviq .fallback-path, .product-terviq .signal-cursor { display: none !important; }
 @media (prefers-reduced-motion: reduce) { .visual-qadryn .process-route, .visual-vessyra .shield-layer, .visual-vessyra .shield-scan, .visual-mireqon .dashboard-bars rect, .visual-mireqon .dashboard-route, .visual-mireqon .dashboard-readouts rect, .visual-terviq .cpu-trace { animation: none !important; } }
+
+
+/* Eryndex product scenes v5｜依產品概念微調幾何與訊號節奏。 */
+.visual-qadryn .process-nodes rect { fill: #082032; stroke: var(--cyan); stroke-width: 1; }
+.visual-qadryn .process-nodes rect:nth-child(3n) { fill: rgba(105,230,193,.32); stroke: var(--mint); }
+.visual-qadryn .process-nodes rect:nth-child(4n) { fill: rgba(163,139,255,.3); stroke: var(--violet); }
+.visual-qadryn .process-dot { r: 1.5; }
+.visual-vessyra .shield-outer { transform-origin: 50% 50%; }
+.visual-vessyra .shield-middle { transform-origin: 50% 50%; }
+.visual-vessyra .shield-inner { transform-origin: 50% 50%; }
+.visual-terviq .cpu-in-trace { stroke: var(--mint); stroke-dasharray: 3 5; opacity: .48; animation-direction: reverse; }
+.visual-terviq .cpu-dot.cpu-in { fill: var(--mint); stroke: #ecfff9; opacity: .72; filter: drop-shadow(0 0 3px var(--mint)); }
+@media (prefers-reduced-motion: reduce) { .visual-qadryn .process-route, .visual-vessyra .shield-layer, .visual-vessyra .shield-scan, .visual-mireqon .dashboard-bars rect, .visual-mireqon .dashboard-route, .visual-mireqon .dashboard-readouts rect, .visual-terviq .cpu-trace, .visual-terviq .cpu-dot { animation: none !important; } }
