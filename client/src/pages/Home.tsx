@@ -235,7 +235,8 @@ export function ProductDetailPage() {
 
 function SolutionImage({ product }: { product: Product }) {
   const { lang } = useSite();
-  return <div className={`solution-detail-image product-${product.slug}`}><div className="solution-fallback" role="img" aria-label={tx(product.name, lang)}><span>EDX / {product.number} · SIGNAL READY</span></div></div>;
+  const Icon = product.icon;
+  return <div className={`solution-detail-image product-${product.slug}`}><div className={`solution-fallback solution-product-fallback tone-${product.tone}`} role="img" aria-label={`${tx(product.name, lang)} product icon`}><div className="solution-icon-orbit orbit-primary" /><div className="solution-icon-orbit orbit-secondary" /><div className="solution-icon-core"><Icon size={62} strokeWidth={1.15} /></div><span className="solution-signal-label">EDX / {product.number} · SIGNAL READY</span></div></div>;
 }
 
 export function SolutionsPage() {
