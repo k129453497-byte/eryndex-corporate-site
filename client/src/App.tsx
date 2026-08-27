@@ -1,6 +1,6 @@
 // Eryndex Signal Atelier｜全站外框。固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口。
 import { useEffect, useState } from "react";
-import { Link, Route, Switch, useLocation } from "wouter";
+import { Link, Route, Switch, Router as WouterRouter, useLocation } from "wouter";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,7 +40,7 @@ function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="brand" onClick={onNav} aria-label="Eryndex 智序科技 home">
-          <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
+          <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
           <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
         </Link>
         <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open}>
@@ -72,7 +72,7 @@ function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand-col">
           <Link href="/" className="brand footer-brand">
-            <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
+            <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
             <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
           <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長。" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长。" : "Let technology understand work, so businesses can focus on growth."}</p>
@@ -87,7 +87,7 @@ function Footer() {
   );
 }
 
-function Router() {
+function SiteRoutes() {
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -124,9 +124,9 @@ function SiteShell() {
       {isOverlay ? <div className="site-modal-backdrop" role="presentation" onClick={() => navigate("/")}>
         <section className="site-modal" role="dialog" aria-modal="true" aria-label={closeLabel} onClick={(event) => event.stopPropagation()}>
           <button className="modal-close" onClick={() => navigate("/")} aria-label={closeLabel}><X size={20} /></button>
-          <Router />
+          <SiteRoutes />
         </section>
-      </div> : <Router />}
+      </div> : <SiteRoutes />}
     </main>
     <Footer />
   </>;
@@ -139,7 +139,7 @@ export default function App() {
         <SiteProvider>
           <TooltipProvider>
             <Toaster theme="dark" position="bottom-right" />
-            <SiteShell />
+            <WouterRouter base={import.meta.env.BASE_URL}><SiteShell /></WouterRouter>
           </TooltipProvider>
         </SiteProvider>
       </ThemeProvider>
