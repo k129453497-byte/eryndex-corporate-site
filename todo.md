@@ -67,3 +67,10 @@
 - [x] 將製作說明頁按鈕恢復為三語 PDF 下載連結。
 - [x] 更新 PDF 靜態資產與 GitHub Pages 可用 URL。
 - [x] 驗證 PDF 視覺、下載連結、build 與 GitHub Pages 部署。
+
+## 補充 grill-me Skill
+
+- [ ] 讀取 grill-me Skill 說明並確認適合的製作用途。
+- [ ] 將 grill-me 補進三語網站 Skills 文案。
+- [ ] 同步修改 Signal Atelier PDF 內容並重新上傳資產。
+- [ ] 驗證網站、PDF、build 與 GitHub Pages 部署。
