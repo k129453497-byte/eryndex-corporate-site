@@ -318,8 +318,8 @@ body.modal-open { overflow: hidden; }
 .symbol-qadryn { width: 16%; aspect-ratio: 1; border: 1px solid var(--cyan); border-radius: 3px; transform: rotate(45deg); box-shadow: 0 0 25px rgba(98,231,255,.25); }
 .symbol-qadryn::before { width: 42%; height: 1px; background: var(--cyan); transform: rotate(-45deg) translateX(-6px); box-shadow: 12px 0 0 rgba(98,231,255,.9); }
 .symbol-qadryn::after { width: 4px; height: 4px; border: 1px solid var(--cyan); border-radius: 50%; transform: rotate(-45deg) translate(10px,-11px); box-shadow: -22px 17px 0 -1px var(--violet), 18px 20px 0 -1px var(--mint); }
-.product-qadryn .signal-cursor { animation: qadryn-symbol-point 4.6s ease-in-out infinite; }
-@keyframes qadryn-symbol-point { 0% { transform: translate(-70px, 36px); } 24% { transform: translate(-17px, 11px); } 48% { transform: translate(28px,-18px); } 72% { transform: translate(79px,-49px); } 100% { transform: translate(-70px, 36px); } }
+.product-qadryn .signal-cursor { offset-path: path("M -72 36 C -108 2 -76 -55 -10 -60 C 42 -64 86 -20 72 23 C 45 56 -20 70 -72 36"); offset-rotate: 0deg; animation: product-symbol-path 5.2s linear infinite; }
+@keyframes product-symbol-path { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 /* Vessyra = security：鎖定核心與雙層防護邊界 */
 .symbol-vessyra { width: 15%; aspect-ratio: .86; border: 1px solid var(--mint); border-radius: 3px 3px 8px 8px; transform: translateY(5px); box-shadow: 0 0 25px rgba(105,230,193,.28); }
 .symbol-vessyra::before { width: 46%; height: 36%; left: 27%; top: -24%; border: 1px solid var(--mint); border-bottom: 0; border-radius: 9px 9px 0 0; }
@@ -330,21 +330,21 @@ body.modal-open { overflow: hidden; }
 .symbol-mireqon { width: 18%; height: 14%; border-left: 1px solid var(--violet); border-bottom: 1px solid var(--violet); transform: translate(-2px,10px); background: transparent; box-shadow: none; }
 .symbol-mireqon::before { left: 17%; bottom: 0; width: 12%; height: 35%; background: var(--violet); box-shadow: 11px -7px 0 var(--cyan), 22px -19px 0 var(--mint); }
 .symbol-mireqon::after { left: 16%; top: 15%; width: 64%; height: 1px; background: linear-gradient(90deg, var(--violet), var(--cyan), transparent); transform: rotate(-19deg); transform-origin: left center; }
-.product-mireqon .signal-cursor { animation: mireqon-symbol-point 4.1s steps(1,end) infinite; }
-@keyframes mireqon-symbol-point { 0%,20% { transform: translate(-70px,52px); } 25%,45% { transform: translate(-18px,23px); } 50%,70% { transform: translate(25px,-8px); } 75%,95% { transform: translate(75px,-43px); } 100% { transform: translate(-70px,52px); } }
+.product-mireqon .signal-cursor { offset-path: path("M -72 52 C -42 34 -23 25 2 9 S 48 -25 78 -45"); offset-rotate: 0deg; animation: mireqon-smooth-flow 4.8s ease-in-out infinite alternate; }
+@keyframes mireqon-smooth-flow { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 /* Terviq = edge compute：本地運算晶片與四向連接腳位 */
 .symbol-terviq { width: 16%; aspect-ratio: 1; border: 1px solid var(--cyan); border-radius: 3px; transform: rotate(45deg); box-shadow: 0 0 26px rgba(98,231,255,.3); }
 .symbol-terviq::before { inset: 19%; border: 1px solid var(--mint); border-radius: 2px; }
 .symbol-terviq::after { width: 8px; height: 8px; left: calc(50% - 4px); top: calc(50% - 4px); border: 1px solid var(--cyan); box-shadow: -17px 0 0 -3px var(--mint), 17px 0 0 -3px var(--mint), 0 -17px 0 -3px var(--mint), 0 17px 0 -3px var(--mint); }
-.product-terviq .signal-cursor { animation: terviq-symbol-point 4.8s ease-in-out infinite; }
-@keyframes terviq-symbol-point { 0%,100% { transform: translate(-66px,0); } 25% { transform: translate(0,-66px); } 50% { transform: translate(70px,0); } 75% { transform: translate(0,68px); } }
+.product-terviq .signal-cursor { offset-path: path("M -68 0 L -44 -44 L 43 -44 L 69 0 L 43 44 L -44 44 Z"); offset-rotate: 0deg; animation: terviq-chip-route 5.6s linear infinite; }
+@keyframes terviq-chip-route { from { offset-distance: 0%; } to { offset-distance: 100%; } }
 /* 讓訊號點停留在核心邊界，不遮住 caption；視覺層級由核心 icon 主導。 */
 .product-qadryn .ai-pulse { border-color: rgba(98,231,255,.52); }
 .product-vessyra .ai-pulse { border-color: rgba(105,230,193,.52); }
 .product-mireqon .ai-pulse { border-color: rgba(163,139,255,.58); }
 .product-terviq .ai-pulse { border-color: rgba(98,231,255,.58); }
 @media (max-width: 720px) { .symbol-qadryn, .symbol-vessyra, .symbol-mireqon, .symbol-terviq { transform: scale(.92) rotate(45deg); } .symbol-vessyra { transform: scale(.92) translateY(5px); } .symbol-mireqon { transform: scale(.92) translate(-2px,10px); } }
-@media (prefers-reduced-motion: reduce) { .product-qadryn .signal-cursor, .product-vessyra .signal-cursor, .product-mireqon .signal-cursor, .product-terviq .signal-cursor { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .product-qadryn .signal-cursor, .product-vessyra .signal-cursor, .product-mireqon .signal-cursor, .product-terviq .signal-cursor { animation: none !important; offset-distance: 0%; } }
 
 
 /* Eryndex hero orbit nodes｜訊號點是軌道的子元素，位移半徑直接取自各軌道尺寸，確保真正貼著線跑。 */
@@ -385,3 +385,67 @@ body.modal-open { overflow: hidden; }
 }
 @media (max-width: 720px) { .hero-signal-dot { display: none; } }
 @media (prefers-reduced-motion: reduce) { .hero-orbit.orbit-a .hero-signal-dot, .hero-orbit.orbit-b .hero-signal-dot { animation: none !important; } }
+
+
+/* Eryndex product motion overlay｜SVG 路徑與圖形同一座標系，讓光點不再靠猜測位移，而是沿可見路線運行。 */
+.product-motion-overlay { position: absolute; inset: 0; z-index: 6; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.motion-rail { fill: none; stroke-width: .42; stroke-linecap: round; stroke-linejoin: round; opacity: .5; vector-effect: non-scaling-stroke; }
+.motion-dot { stroke: currentColor; stroke-width: .55; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 4px currentColor); }
+.product-qadryn .motion-rail { stroke: var(--cyan); }.product-qadryn .motion-dot { color: var(--cyan); fill: var(--cyan); }
+.product-vessyra .motion-rail { stroke: var(--mint); }.product-vessyra .motion-dot { color: var(--mint); fill: var(--mint); }
+.product-mireqon .motion-rail { stroke: var(--violet); }.product-mireqon .motion-dot { color: var(--violet); fill: var(--violet); }
+.product-terviq .motion-rail { stroke: var(--cyan); }.product-terviq .motion-dot { color: var(--cyan); fill: var(--cyan); }
+.product-qadryn .signal-cursor, .product-vessyra .signal-cursor, .product-mireqon .signal-cursor, .product-terviq .signal-cursor { display: none !important; }
+@media (max-width: 720px) { .product-motion-overlay { inset: 2% 0; } .motion-rail { opacity: .4; } }
+@media (prefers-reduced-motion: reduce) { .motion-dot { display: none; } }
+
+
+/* Eryndex product scenes v4｜每個產品使用自己的視覺物件，不再共享橢圓軌道或同一顆光點。 */
+.product-motion-overlay { z-index: 8; }
+.product-symbol-visual { overflow: visible; transform-box: fill-box; transform-origin: center; }
+.product-symbol-visual path, .product-symbol-visual rect, .product-symbol-visual circle { vector-effect: non-scaling-stroke; }
+/* 01 Qadryn｜節點流程：線是流程，節點是任務，光點沿主線穿梭。 */
+.visual-qadryn .process-route { fill: none; stroke: var(--cyan); stroke-width: 1.1; stroke-linecap: round; stroke-dasharray: 7 3; opacity: .92; animation: process-route-flow 6s linear infinite; }
+.visual-qadryn .process-branch { fill: none; stroke: rgba(163,139,255,.72); stroke-width: .65; stroke-linecap: round; stroke-dasharray: 4 4; opacity: .78; }
+.visual-qadryn .process-nodes circle { fill: #082032; stroke: var(--cyan); stroke-width: 1; }
+.visual-qadryn .process-nodes circle:nth-child(3n) { fill: var(--mint); stroke: var(--mint); }
+.visual-qadryn .process-nodes circle:nth-child(4n) { fill: var(--violet); stroke: var(--violet); }
+.visual-qadryn .process-dot { fill: var(--cyan); stroke: #d8fbff; stroke-width: .45; filter: drop-shadow(0 0 4px var(--cyan)); }
+@keyframes process-route-flow { to { stroke-dashoffset: -40; } }
+/* 02 Vessyra｜多層盾牌：邊界錯位、緩慢反向運轉，不使用訊號點。 */
+.visual-vessyra .shield-layer { fill: rgba(105,230,193,.025); stroke: var(--mint); stroke-width: .85; stroke-linejoin: round; transform-box: fill-box; transform-origin: center; }
+.visual-vessyra .shield-outer { opacity: .78; animation: shield-outer-turn 13s ease-in-out infinite; }
+.visual-vessyra .shield-middle { stroke: rgba(105,230,193,.82); opacity: .7; animation: shield-middle-turn 9s ease-in-out infinite reverse; }
+.visual-vessyra .shield-inner { stroke: #ccfff0; opacity: .9; animation: shield-inner-breathe 4.5s ease-in-out infinite; }
+.visual-vessyra .shield-scan { fill: none; stroke: var(--mint); stroke-width: .7; stroke-dasharray: 10 14; opacity: .45; animation: shield-scan-flow 5s linear infinite; }
+.visual-vessyra .scan-two { stroke: rgba(163,139,255,.65); animation-direction: reverse; animation-duration: 7s; }
+@keyframes shield-outer-turn { 0%,100% { transform: rotate(-4deg) scale(1); } 50% { transform: rotate(7deg) scale(1.04); } }
+@keyframes shield-middle-turn { 0%,100% { transform: rotate(8deg) scale(.96); } 50% { transform: rotate(-8deg) scale(1.03); } }
+@keyframes shield-inner-breathe { 0%,100% { transform: scale(.96); opacity: .68; } 50% { transform: scale(1.05); opacity: 1; } }
+@keyframes shield-scan-flow { to { stroke-dashoffset: -48; } }
+/* 03 Mireqon｜儀表板：資料柱平滑升降、折線沿路徑流動，不使用閃爍。 */
+.visual-mireqon .dashboard-frame { fill: rgba(163,139,255,.035); stroke: rgba(163,139,255,.72); stroke-width: .8; }
+.visual-mireqon .dashboard-grid { fill: none; stroke: rgba(163,139,255,.25); stroke-width: .45; }
+.visual-mireqon .dashboard-bars rect { fill: var(--violet); transform-box: fill-box; transform-origin: bottom; animation: dashboard-bars-rise 5.2s ease-in-out infinite alternate; }
+.visual-mireqon .dashboard-bars rect:nth-child(2) { fill: var(--cyan); animation-delay: -.8s; }.visual-mireqon .dashboard-bars rect:nth-child(3) { fill: var(--mint); animation-delay: -1.6s; }.visual-mireqon .dashboard-bars rect:nth-child(4) { fill: var(--violet); animation-delay: -2.5s; }
+.visual-mireqon .dashboard-route { fill: none; stroke: var(--cyan); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 9 4; animation: dashboard-route-flow 5s linear infinite; }
+.visual-mireqon .dashboard-dot { fill: #d8fbff; stroke: var(--cyan); stroke-width: .65; filter: drop-shadow(0 0 3px var(--cyan)); }
+.visual-mireqon .dashboard-readouts rect { fill: rgba(105,230,193,.74); animation: dashboard-readout-breathe 4s ease-in-out infinite; }
+.visual-mireqon .dashboard-readouts rect:nth-child(2) { fill: rgba(163,139,255,.68); animation-delay: -1.4s; }
+@keyframes dashboard-bars-rise { 0% { transform: scaleY(.72); } 52% { transform: scaleY(1.06); } 100% { transform: scaleY(.86); } }
+@keyframes dashboard-route-flow { to { stroke-dashoffset: -52; } }
+@keyframes dashboard-readout-breathe { 0%,100% { opacity: .35; } 50% { opacity: .9; } }
+/* 04 Terviq｜CPU：晶片內核向四向 trace 發送電子脈衝，四條路徑各自錯開。 */
+.visual-terviq .cpu-board { fill: rgba(98,231,255,.04); stroke: rgba(98,231,255,.72); stroke-width: .85; }
+.visual-terviq .cpu-die { fill: rgba(105,230,193,.08); stroke: var(--mint); stroke-width: 1; }
+.visual-terviq .cpu-trace { fill: none; stroke: var(--cyan); stroke-width: .8; stroke-linecap: round; stroke-dasharray: 5 4; animation: cpu-trace-flow 2.6s linear infinite; }
+.visual-terviq .cpu-trace:nth-of-type(2) { stroke: var(--mint); animation-duration: 3s; animation-delay: -.7s; }.visual-terviq .cpu-trace:nth-of-type(3) { stroke: var(--violet); animation-duration: 2.8s; animation-delay: -1.3s; }.visual-terviq .cpu-trace:nth-of-type(4) { stroke: var(--cyan); animation-duration: 3.2s; animation-delay: -1.9s; }
+.visual-terviq .cpu-pin { fill: none; stroke: rgba(163,139,255,.75); stroke-width: .6; stroke-linecap: round; }
+.visual-terviq .cpu-dot { fill: #f4ffff; stroke: var(--cyan); stroke-width: .55; filter: drop-shadow(0 0 4px var(--cyan)); }
+@keyframes cpu-trace-flow { to { stroke-dashoffset: -27; } }
+/* 清除舊共用核心與直線訊號層，避免新場景被重複圖形干擾。 */
+.product-qadryn .fallback-orbit, .product-qadryn .fallback-core, .product-qadryn .fallback-path, .product-qadryn .signal-cursor,
+.product-vessyra .fallback-orbit, .product-vessyra .fallback-core, .product-vessyra .fallback-path, .product-vessyra .signal-cursor,
+.product-mireqon .fallback-orbit, .product-mireqon .fallback-core, .product-mireqon .fallback-path, .product-mireqon .signal-cursor,
+.product-terviq .fallback-orbit, .product-terviq .fallback-core, .product-terviq .fallback-path, .product-terviq .signal-cursor { display: none !important; }
+@media (prefers-reduced-motion: reduce) { .visual-qadryn .process-route, .visual-vessyra .shield-layer, .visual-vessyra .shield-scan, .visual-mireqon .dashboard-bars rect, .visual-mireqon .dashboard-route, .visual-mireqon .dashboard-readouts rect, .visual-terviq .cpu-trace { animation: none !important; } }
