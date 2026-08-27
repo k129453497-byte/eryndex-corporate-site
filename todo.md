@@ -1,8 +1,7 @@
-# 整合式產品動畫更新
+# Qadryn 三路線與節點停頓修正
 
-- [x] 盤點四項產品現有 SVG 圖形與動態層
-- [x] Vessyra 加入安全網格、三重閘門與核心鎖定狀態
-- [x] Qadryn 保留正方形節點、弧線流程與到站停頓
-- [x] Mireqon 保留平滑儀表板、資料柱與折線更新
-- [x] Terviq 保留 CPU 電路板與錯落有進有出的訊號
-- [x] 驗證桌機／手機／reduced-motion、build 並保存新版 checkpoint
+- [x] 盤點目前三條流程線與正方形節點的座標關係
+- [x] 建立三條獨立 SVG 流程路線與三個錯落光點
+- [x] 讓每個光點在正方形節點中心或邊界精準停頓，再前往下一站
+- [x] 驗證桌機、手機與 reduced-motion 顯示
+- [x] 通過 production build、保存新版 checkpoint 並提供預覽
