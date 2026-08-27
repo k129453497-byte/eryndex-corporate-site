@@ -31,3 +31,7 @@ Hero 截圖確認首頁主視覺的綠色與紫色訊號點仍以 Hero orbit 子
 ## 網站製作說明頁檢查
 
 頁首 CTA 已由「預約產品展示」改為「網站架構」，點擊後可開啟 /making 的可關閉 modal。製作說明頁首屏能正常顯示三語切換所對應的標題與說明內容，並保留 sticky 關閉按鈕；完整頁面內容包含 Skills、AI 視覺工具、網頁技術、單頁架構與公開參考連結。
+
+## 完整 Skills 盤點檢查
+
+製作說明頁的 Skills 區已補充實際使用項目（imagegen、webdev-readme-static），並列出直接相關但本案未啟用的 read-special-images、typst-pdf-maker、builtin-llm-models、manus-api、automation-and-scheduling、persistent-computing；同時說明完全無關 Skills 刻意排除。桌機 modal 首屏維持可讀，頁首入口與關閉控制正常。
