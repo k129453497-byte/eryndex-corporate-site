@@ -345,3 +345,43 @@ body.modal-open { overflow: hidden; }
 .product-terviq .ai-pulse { border-color: rgba(98,231,255,.58); }
 @media (max-width: 720px) { .symbol-qadryn, .symbol-vessyra, .symbol-mireqon, .symbol-terviq { transform: scale(.92) rotate(45deg); } .symbol-vessyra { transform: scale(.92) translateY(5px); } .symbol-mireqon { transform: scale(.92) translate(-2px,10px); } }
 @media (prefers-reduced-motion: reduce) { .product-qadryn .signal-cursor, .product-vessyra .signal-cursor, .product-mireqon .signal-cursor, .product-terviq .signal-cursor { animation: none !important; } }
+
+
+/* Eryndex hero orbit nodes｜訊號點是軌道的子元素，位移半徑直接取自各軌道尺寸，確保真正貼著線跑。 */
+.hero-signal-dot { position: absolute; top: 50%; left: 50%; z-index: 4; display: block; width: 9px; height: 9px; margin: -4.5px; border: 1px solid currentColor; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 14%, transparent), 0 0 22px currentColor; }
+.hero-signal-dot::after { content: ""; position: absolute; inset: -7px; border: 1px solid currentColor; border-radius: 50%; opacity: .3; }
+.hero-orbit.orbit-a { color: var(--mint); border-color: rgba(105,230,193,.44); }
+.hero-orbit.orbit-b { color: var(--violet); border-color: rgba(163,139,255,.42); }
+.hero-orbit.orbit-a .hero-signal-dot { animation: hero-orbit-a-dot 8.5s linear infinite; }
+.hero-orbit.orbit-b .hero-signal-dot { animation: hero-orbit-b-dot 6.8s linear infinite -2.4s; }
+@keyframes hero-orbit-a-dot {
+  0% { transform: translate(0,-115px); }
+  12.5% { transform: translate(184px,-81px); }
+  25% { transform: translate(260px,0); }
+  37.5% { transform: translate(184px,81px); }
+  50% { transform: translate(0,115px); }
+  62.5% { transform: translate(-184px,81px); }
+  75% { transform: translate(-260px,0); }
+  87.5% { transform: translate(-184px,-81px); }
+  100% { transform: translate(0,-115px); }
+}
+@keyframes hero-orbit-b-dot {
+  0% { transform: translate(0,210px); }
+  12.5% { transform: translate(-124px,148px); }
+  25% { transform: translate(-175px,0); }
+  37.5% { transform: translate(-124px,-148px); }
+  50% { transform: translate(0,-210px); }
+  62.5% { transform: translate(124px,-148px); }
+  75% { transform: translate(175px,0); }
+  87.5% { transform: translate(124px,148px); }
+  100% { transform: translate(0,210px); }
+}
+@media (max-width: 1000px) { .hero-orbit.orbit-a .hero-signal-dot { animation-name: hero-orbit-a-dot-tablet; } .hero-orbit.orbit-b .hero-signal-dot { animation-name: hero-orbit-b-dot-tablet; } }
+@keyframes hero-orbit-a-dot-tablet {
+  0% { transform: translate(0,-95px); } 25% { transform: translate(210px,0); } 50% { transform: translate(0,95px); } 75% { transform: translate(-210px,0); } 100% { transform: translate(0,-95px); }
+}
+@keyframes hero-orbit-b-dot-tablet {
+  0% { transform: translate(0,175px); } 25% { transform: translate(-145px,0); } 50% { transform: translate(0,-175px); } 75% { transform: translate(145px,0); } 100% { transform: translate(0,175px); }
+}
+@media (max-width: 720px) { .hero-signal-dot { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-orbit.orbit-a .hero-signal-dot, .hero-orbit.orbit-b .hero-signal-dot { animation: none !important; } }

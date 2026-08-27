@@ -1,7 +1,7 @@
-# 產品視覺對應任務
+# 主視覺軌道動畫修正
 
-- [x] 盤點四項產品目前 icon 與 ProductVisual 的渲染結構
-- [x] 將 Qadryn、Vessyra、Mireqon、Terviq 的核心圖形改為對應產品 icon 幾何
-- [x] 讓每個產品的光點沿自身核心圖形運行，並保留差異化節奏
-- [x] 驗證產品卡與詳細頁的視覺、可讀性與 reduced-motion
-- [x] 通過 production build 並保存新版 checkpoint
+- [x] 盤點首頁 Hero 的現有綠色與紫色軌道 DOM 結構
+- [x] 疊加可見且真正沿 CSS 軌道位移的訊號點
+- [x] 讓兩個訊號點以不同方向與速度交替運行
+- [x] 驗證桌機、手機與 prefers-reduced-motion 行為
+- [x] 執行 production build 並保存新版 checkpoint
