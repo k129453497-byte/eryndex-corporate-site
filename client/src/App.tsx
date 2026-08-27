@@ -1,5 +1,5 @@
 // Eryndex Signal Atelier｜全站外框。固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口。
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
@@ -40,7 +40,7 @@ function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="brand" onClick={onNav} aria-label="Eryndex 智序科技 home">
-          <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/nexora-mark-light_0a986db5.png" alt="" /></span>
+          <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
           <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
         </Link>
         <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open}>
@@ -72,7 +72,7 @@ function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand-col">
           <Link href="/" className="brand footer-brand">
-            <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/nexora-mark-light_0a986db5.png" alt="" /></span>
+            <span className="brand-mark-wrap" aria-hidden="true"><img src="/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
             <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
           <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長。" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长。" : "Let technology understand work, so businesses can focus on growth."}</p>
@@ -105,7 +105,31 @@ function Router() {
 }
 
 function SiteShell() {
-  return <><Header /><main><Router /></main><Footer /></>;
+  const [location, navigate] = useLocation();
+  const { lang } = useSite();
+  const isOverlay = location !== "/";
+
+  useEffect(() => {
+    if (!isOverlay) return;
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") navigate("/"); };
+    document.body.classList.add("modal-open");
+    window.addEventListener("keydown", onKey);
+    return () => { document.body.classList.remove("modal-open"); window.removeEventListener("keydown", onKey); };
+  }, [isOverlay, navigate]);
+
+  const closeLabel = lang === "en" ? "Close panel" : lang === "zh-CN" ? "关闭面板" : "關閉面板";
+  return <>
+    <Header />
+    <main>
+      {isOverlay ? <div className="site-modal-backdrop" role="presentation" onClick={() => navigate("/")}>
+        <section className="site-modal" role="dialog" aria-modal="true" aria-label={closeLabel} onClick={(event) => event.stopPropagation()}>
+          <button className="modal-close" onClick={() => navigate("/")} aria-label={closeLabel}><X size={20} /></button>
+          <Router />
+        </section>
+      </div> : <Router />}
+    </main>
+    <Footer />
+  </>;
 }
 
 export default function App() {

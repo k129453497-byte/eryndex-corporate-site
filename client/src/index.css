@@ -227,3 +227,30 @@ img { display: block; max-width: 100%; }
 .solution-detail-image { position: relative; }.solution-fallback { position: absolute; inset: 0; display: grid; place-items: center; color: var(--cyan); background: radial-gradient(circle, rgba(98,231,255,.17), transparent 18%), #0b1a2c; font: .6rem "Space Grotesk", sans-serif; letter-spacing: .14em; }.solution-fallback::before { content: ""; width: 92px; height: 92px; border: 1px solid rgba(98,231,255,.5); border-radius: 50%; box-shadow: 0 0 0 22px rgba(98,231,255,.04), 0 0 0 45px rgba(98,231,255,.025); }
 .faq-section { position: relative; overflow: hidden; }.faq-section::before { content: ""; position: absolute; top: 0; left: max(18px, calc((100% - 1240px) / 2)); width: 1px; height: 100%; background: linear-gradient(transparent, rgba(25,132,152,.35), transparent); }.faq-section::after { content: ""; position: absolute; top: 37%; left: max(14px, calc((100% - 1240px) / 2) - 3px); width: 7px; height: 7px; border: 1px solid #278396; border-radius: 50%; background: #f0f7f7; }
 @media (max-width: 720px) { .faq-section::before { left: 18px; }.faq-section::after { left: 15px; }.faq-grid { position: relative; z-index: 1; padding-left: 18px; }.visual-fallback .fallback-status { right: 12px; bottom: 11px; font-size: .5rem; }.detail-visual .visual-fallback { min-height: 330px; } }
+
+
+/* Eryndex motion layer｜單頁面板與 AI signal movement。動態只強化狀態感，不搶走閱讀焦點。 */
+body.modal-open { overflow: hidden; }
+.site-modal-backdrop { position: fixed; inset: 0; z-index: 80; padding: 86px 22px 22px; background: rgba(2, 9, 18, .78); backdrop-filter: blur(18px); overflow-y: auto; animation: modal-in 180ms var(--ease-out); }
+.site-modal { position: relative; width: min(1180px, 100%); min-height: calc(100vh - 108px); margin: 0 auto; overflow: hidden; background: #071521; border: 1px solid rgba(98,231,255,.24); box-shadow: 0 28px 100px rgba(0,0,0,.52), 0 0 60px rgba(98,231,255,.06); }
+.site-modal::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, rgba(98,231,255,.05), transparent 22%, transparent 74%, rgba(163,139,255,.06)); z-index: 1; }
+.site-modal > * { position: relative; z-index: 2; }
+.modal-close { position: fixed; z-index: 100; top: 99px; right: max(30px, calc((100vw - 1180px) / 2 + 18px)); width: 42px; height: 42px; display: grid; place-items: center; color: #e9f5f7; background: #0d2231; border: 1px solid rgba(98,231,255,.42); transition: transform 160ms var(--ease-out), background 160ms var(--ease-out), color 160ms var(--ease-out); }
+.modal-close:hover { transform: rotate(8deg) scale(1.05); background: var(--cyan); color: #06121e; }
+@keyframes modal-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes signal-breathe { 0%,100% { opacity: .35; transform: scale(.88); } 50% { opacity: 1; transform: scale(1.14); } }
+@keyframes signal-scan { 0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; } 18% { opacity: .75; } 60%,100% { transform: translateX(260%) skewX(-18deg); opacity: 0; } }
+@keyframes signal-drift { 0%,100% { transform: rotate(-27deg) scaleX(1.35) translate(0,0); } 50% { transform: rotate(-24deg) scaleX(1.35) translate(7px,-5px); } }
+.visual-fallback::after { content: ""; position: absolute; inset: 0; width: 28%; background: linear-gradient(90deg, transparent, rgba(98,231,255,.18), transparent); transform: translateX(-130%) skewX(-18deg); animation: signal-scan 5.5s ease-in-out infinite; }
+.visual-fallback .fallback-orbit { animation: signal-drift 7s ease-in-out infinite; }
+.visual-fallback .orbit-small { animation-delay: -2.3s; }
+.ai-pulse { position: absolute; top: 43%; left: 48%; width: 14%; aspect-ratio: 1; border: 1px solid rgba(98,231,255,.8); border-radius: 50%; box-shadow: 0 0 0 9px rgba(98,231,255,.05), 0 0 30px rgba(98,231,255,.32); animation: signal-breathe 2.8s ease-in-out infinite; }
+.signal-cursor { position: absolute; top: 54%; left: 16%; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(98,231,255,.09), 0 0 18px var(--cyan); animation: cursor-path 3.8s ease-in-out infinite; }
+@keyframes cursor-path { 0%,100% { transform: translate(0,0); opacity: .35; } 50% { transform: translate(210px,-68px); opacity: 1; } }
+.hero-art img { animation: hero-float 8s ease-in-out infinite; transform-origin: 52% 48%; }
+@keyframes hero-float { 0%,100% { transform: translate3d(0,0,0) scale(1); filter: saturate(.95); } 50% { transform: translate3d(-8px,-7px,0) scale(1.015); filter: saturate(1.16); } }
+.hero-art::after { content: ""; position: absolute; width: 10px; height: 10px; top: 35%; left: 58%; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 7px rgba(98,231,255,.08), 0 0 28px var(--cyan); animation: signal-breathe 2.2s ease-in-out infinite; }
+.header-signal span { animation: signal-breathe 2.4s ease-in-out infinite; }
+.header-signal span:nth-child(2) { animation-delay: -.7s; }.header-signal span:nth-child(3) { animation-delay: -1.4s; }
+@media (max-width: 720px) { .site-modal-backdrop { padding: 70px 0 0; }.site-modal { min-height: calc(100vh - 70px); border-left: 0; border-right: 0; }.modal-close { position: fixed; top: 82px; right: 16px; width: 38px; height: 38px; }.signal-cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { .site-modal-backdrop, .hero-art img, .hero-art::after, .header-signal span, .visual-fallback::after, .visual-fallback .fallback-orbit, .ai-pulse, .signal-cursor { animation: none !important; } }
