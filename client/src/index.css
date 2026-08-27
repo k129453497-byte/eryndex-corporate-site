@@ -563,3 +563,19 @@ body.modal-open { overflow: hidden; }
 .dossier-card h3 { margin: 28px 0 13px; color: #eaf8fa; font-family: "Space Grotesk", "Noto Sans TC", sans-serif; font-size: 1.12rem; letter-spacing: -.02em; }
 .dossier-card > p:last-child { margin: 0; color: #91abb6; font-size: .8rem; line-height: 1.8; }
 @media (max-width: 720px) { .making-dossier { padding: 84px 0 92px; }.dossier-grid { grid-template-columns: 1fr; gap: 44px; }.dossier-columns { grid-template-columns: 1fr; }.dossier-card { min-height: 0; }.dossier-card h3 { margin-top: 20px; } }
+
+/* Eryndex print output｜列印時保留目前製作說明頁，移除操作性介面，讓瀏覽器可直接另存 PDF。 */
+@media print {
+  @page { margin: 16mm 14mm; }
+  html, body { background: #071521 !important; color-adjust: exact; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.modal-open { overflow: visible !important; }
+  .site-header, .site-footer, .modal-close, .dossier-download, .site-modal-backdrop::before { display: none !important; }
+  .site-modal-backdrop { position: static !important; inset: auto !important; padding: 0 !important; overflow: visible !important; background: #071521 !important; backdrop-filter: none !important; }
+  .site-modal { width: 100% !important; min-height: 0 !important; margin: 0 !important; overflow: visible !important; border: 0 !important; box-shadow: none !important; background: #071521 !important; }
+  .site-modal::before { display: none !important; }
+  .site-modal > * { position: static !important; }
+  .page-header, .making-section, .making-dossier, .references-section { break-inside: avoid; }
+  .making-row, .dossier-card, .reference-links a, .reference-note { break-inside: avoid; }
+  a { color: inherit !important; text-decoration: none !important; }
+  .reference-links a::after { content: " (" attr(href) ")"; color: #7f9aa5; font-size: 8pt; word-break: break-all; }
+}
