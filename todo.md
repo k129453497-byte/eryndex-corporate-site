@@ -62,8 +62,8 @@
 
 ## 恢復網站風格 PDF 下載
 
-- [ ] 盤點上一版 PDF 內容與目前網站 Signal Atelier 視覺規則。
-- [ ] 依網站深色背景、青綠／紫色訊號與字體層級重製 PDF。
-- [ ] 將製作說明頁按鈕恢復為三語 PDF 下載連結。
-- [ ] 更新 PDF 靜態資產與 GitHub Pages 可用 URL。
-- [ ] 驗證 PDF 視覺、下載連結、build 與 GitHub Pages 部署。
+- [x] 盤點上一版 PDF 內容與目前網站 Signal Atelier 視覺規則。
+- [x] 依網站深色背景、青綠／紫色訊號與字體層級重製 PDF。
+- [x] 將製作說明頁按鈕恢復為三語 PDF 下載連結。
+- [x] 更新 PDF 靜態資產與 GitHub Pages 可用 URL。
+- [x] 驗證 PDF 視覺、下載連結、build 與 GitHub Pages 部署。
