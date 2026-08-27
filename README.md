@@ -13,7 +13,7 @@ GitHub Pages 由 `.github/workflows/deploy-pages.yml` 在 `main` 分支更新時
 
 ## Website architecture PDF
 
-主管版網站架構與製作說明可由網站的「網站架構」入口開啟；頁面上的「列印／另存為 PDF」按鈕會呼叫瀏覽器列印功能，使用者可在列印對話框選擇「另存為 PDF」，直接保存當前頁面內容。
+主管版網站架構與製作說明可由網站的「網站架構」入口下載。新版 PDF 使用與網站一致的 Signal Atelier 深色訊號場、青綠／紫色層級、細線分隔與三語內容。
 
 PDF 涵蓋品牌定位、單頁 modal 架構、四項產品系統、產品專屬 SVG／CSS 動效、三語支援、WCAG 2 相關實作範圍、技術棧與公開參考來源。
 
