@@ -1,25 +1,278 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+// NEXORA Signal Atelier｜頁面內容與互動。採資料流長頁、偏移分欄與系統標籤，所有主要文案均以三語資料結構維護。
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { Link, useLocation, useRoute } from "wouter";
+import {
+  ArrowDownRight,
+  ArrowRight,
+  ArrowUpRight,
+  BarChart3,
+  Check,
+  ChevronDown,
+  CircleCheck,
+  Cpu,
+  FileText,
+  Gauge,
+  Layers3,
+  LockKeyhole,
+  Network,
+  Radar,
+  ShieldCheck,
+  Sparkles,
+  Workflow,
+} from "lucide-react";
+import { useSite, type Lang } from "../contexts/SiteContext";
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
-export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+type Copy = Record<Lang, string>;
+type CopyList = Record<Lang, readonly string[]>;
+const tx = (copy: Copy, lang: Lang) => copy[lang];
+const list = (copy: CopyList, lang: Lang) => copy[lang];
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
-  );
+const products = [
+  {
+    slug: "pulse",
+    number: "01",
+    name: { "zh-TW": "Nexora Pulse", "zh-CN": "Nexora Pulse", en: "Nexora Pulse" },
+    category: { "zh-TW": "AI 工作流程自動化", "zh-CN": "AI 工作流程自动化", en: "AI workflow automation" },
+    strap: { "zh-TW": "把重複交給系統，把判斷留給團隊。", "zh-CN": "把重复交给系统，把判断留给团队。", en: "Give repetition to the system. Keep judgment with your team." },
+    summary: { "zh-TW": "把表單、文件、客服與內部流程，串成一條清楚可追蹤的工作流。", "zh-CN": "把表单、文件、客服与内部流程，串成一条清晰可追踪的工作流。", en: "Connect forms, documents, support, and internal tasks into one clear, traceable flow." },
+    problem: { "zh-TW": "流程散落在信箱、試算表與聊天視窗，團隊花時間搬運資訊，而不是處理真正重要的工作。", "zh-CN": "流程散落在邮箱、表格与聊天窗口，团队花时间搬运信息，而不是处理真正重要的工作。", en: "Work gets scattered across inboxes, spreadsheets, and chat, leaving teams to move information instead of moving work forward." },
+    audience: { "zh-TW": "適合需要縮短行政與客服處理時間的營運團隊。", "zh-CN": "适合需要缩短行政与客服处理时间的运营团队。", en: "For operations teams ready to shorten admin and support cycles." },
+    features: { "zh-TW": ["表單與文件內容擷取", "條件式流程與任務分派", "客服意圖分類與回覆草稿", "稽核紀錄與流程狀態追蹤"], "zh-CN": ["表单与文档内容提取", "条件式流程与任务分派", "客服意图分类与回复草稿", "审计记录与流程状态追踪"], en: ["Form and document extraction", "Conditional routing and task assignment", "Support intent classification and draft replies", "Audit trails and workflow visibility"] },
+    useCases: { "zh-TW": ["新客戶資料進件", "請款與文件審核", "客服工單分流", "跨部門任務交接"], "zh-CN": ["新客户资料进件", "请款与文件审核", "客服工单分流", "跨部门任务交接"], en: ["New customer intake", "Invoice and document review", "Support ticket routing", "Cross-team handoffs"] },
+    image: "/manus-storage/nexora-pulse-final_86a17a6d.png",
+    icon: Workflow,
+    tone: "cyan",
+  },
+  {
+    slug: "aegis",
+    number: "02",
+    name: { "zh-TW": "Nexora Aegis", "zh-CN": "Nexora Aegis", en: "Nexora Aegis" },
+    category: { "zh-TW": "企業資料安全與權限管理", "zh-CN": "企业数据安全与权限管理", en: "Data security and access control" },
+    strap: { "zh-TW": "權限清楚，風險才有邊界。", "zh-CN": "权限清晰，风险才有边界。", en: "When access is clear, risk has a boundary." },
+    summary: { "zh-TW": "從帳號生命週期、登入風險到裝置狀態，建立一套看得懂的安全控制面。", "zh-CN": "从账号生命周期、登录风险到设备状态，建立一套看得懂的安全控制面。", en: "Bring account lifecycles, login risk, and device posture into one legible control plane." },
+    problem: { "zh-TW": "誰可以看什麼資料、何時需要收回權限，常常依賴人工記憶，風險也因此藏在日常裡。", "zh-CN": "谁可以看什么数据、何时需要收回权限，常常依赖人工记忆，风险也因此藏在日常里。", en: "Access decisions often depend on memory and manual follow-up, hiding risk inside everyday work." },
+    audience: { "zh-TW": "適合需要整理帳號、裝置與登入風險的企業管理者。", "zh-CN": "适合需要梳理账号、设备与登录风险的企业管理者。", en: "For leaders who need a practical view of identity, devices, and login risk." },
+    features: { "zh-TW": ["單一帳號與群組權限管理", "登入風險與異常行為偵測", "裝置註冊、狀態與政策控管", "可讀的安全報告與事件時間軸"], "zh-CN": ["统一账号与群组权限管理", "登录风险与异常行为检测", "设备注册、状态与策略管控", "易读的安全报告与事件时间线"], en: ["Identity and group access management", "Login risk and unusual activity signals", "Device registration, posture, and policy controls", "Readable security reports and event timelines"] },
+    useCases: { "zh-TW": ["新進與離職帳號管理", "遠端登入風險檢視", "外部協作者權限控管", "裝置盤點與安全稽核"], "zh-CN": ["新入职与离职账号管理", "远程登录风险查看", "外部协作者权限控制", "设备盘点与安全审计"], en: ["Joiner and leaver access", "Remote login review", "External collaborator controls", "Device inventory and security checks"] },
+    image: "/manus-storage/nexora-aegis-final_ac2a855b.png",
+    icon: ShieldCheck,
+    tone: "mint",
+  },
+  {
+    slug: "lattice",
+    number: "03",
+    name: { "zh-TW": "Nexora Lattice", "zh-CN": "Nexora Lattice", en: "Nexora Lattice" },
+    category: { "zh-TW": "企業營運分析儀表板", "zh-CN": "企业运营分析仪表板", en: "Operational intelligence" },
+    strap: { "zh-TW": "看見每一筆資料如何成為下一個決策。", "zh-CN": "看见每一笔数据如何成为下一个决策。", en: "See how every signal can become the next decision." },
+    summary: { "zh-TW": "整合銷售、客服、專案與營運資料，讓團隊看見趨勢、找到異常並採取行動。", "zh-CN": "整合销售、客服、项目与运营数据，让团队看见趋势、找到异常并采取行动。", en: "Bring sales, support, projects, and operations into a shared view of signals, patterns, and next actions." },
+    problem: { "zh-TW": "重要資訊存在不同系統裡，會議前才開始整理，決策只能依賴片段印象。", "zh-CN": "重要信息存在不同系统里，会议前才开始整理，决策只能依赖片段印象。", en: "Important signals live in different systems, so decisions begin with last-minute collection and partial context." },
+    audience: { "zh-TW": "適合希望把營運資料轉成可執行洞察的成長型團隊。", "zh-CN": "适合希望把运营数据转成可执行洞察的成长型团队。", en: "For growing teams turning operational data into action." },
+    features: { "zh-TW": ["跨來源資料彙整與欄位對應", "銷售、客服與專案視圖", "異常與趨勢提示", "可分享的週期性營運報告"], "zh-CN": ["跨来源数据汇总与字段映射", "销售、客服与项目视图", "异常与趋势提示", "可分享的周期性运营报告"], en: ["Cross-source data mapping", "Sales, support, and project views", "Trend and anomaly signals", "Shareable recurring operations reports"] },
+    useCases: { "zh-TW": ["每週營運會議", "銷售漏斗檢視", "客服品質追蹤", "專案健康度管理"], "zh-CN": ["每周运营会议", "销售漏斗查看", "客服质量追踪", "项目健康度管理"], en: ["Weekly operating reviews", "Pipeline visibility", "Support quality tracking", "Project health management"] },
+    image: "/manus-storage/nexora-lattice-final_fd537a7d.png",
+    icon: BarChart3,
+    tone: "violet",
+  },
+  {
+    slug: "foundry",
+    number: "04",
+    name: { "zh-TW": "Nexora Foundry", "zh-CN": "Nexora Foundry", en: "Nexora Foundry" },
+    category: { "zh-TW": "企業內部 AI 邊緣運算設備", "zh-CN": "企业内部 AI 边缘计算设备", en: "On-site AI edge computing" },
+    strap: { "zh-TW": "把智慧放在資料需要被保護的地方。", "zh-CN": "把智能放在数据需要被保护的地方。", en: "Put intelligence where your data needs protection." },
+    summary: { "zh-TW": "在企業內部環境處理敏感資料，讓 AI 能力靠近工作現場，也降低不必要的資料外傳。", "zh-CN": "在企业内部环境处理敏感数据，让 AI 能力靠近工作现场，也降低不必要的数据外传。", en: "Process sensitive data in your own environment, keeping intelligence close to the work and unnecessary exposure low." },
+    problem: { "zh-TW": "不是所有資料都適合離開企業環境，但團隊仍希望使用自然語言與 AI 協助工作。", "zh-CN": "不是所有数据都适合离开企业环境，但团队仍希望使用自然语言与 AI 协助工作。", en: "Not every dataset should leave the company, yet teams still want practical AI assistance in natural language." },
+    audience: { "zh-TW": "適合有內部部署需求、重視資料落點的中小企業。", "zh-CN": "适合有内部部署需求、重视数据落点的中小企业。", en: "For small and medium businesses that need on-site processing and data locality." },
+    features: { "zh-TW": ["本地資料處理與模型服務", "企業網路與身分整合", "資源用量與服務狀態監看", "可控的模型、資料與更新政策"], "zh-CN": ["本地数据处理与模型服务", "企业网络与身份集成", "资源用量与服务状态监控", "可控的模型、数据与更新策略"], en: ["Local data processing and model serving", "Enterprise network and identity integration", "Resource and service monitoring", "Controlled model, data, and update policies"] },
+    useCases: { "zh-TW": ["內部知識搜尋", "敏感文件摘要", "營運資料問答", "現場作業輔助"], "zh-CN": ["内部知识搜索", "敏感文档摘要", "运营数据问答", "现场作业辅助"], en: ["Internal knowledge search", "Sensitive document summaries", "Operations Q&A", "On-site assistance"] },
+    image: "/manus-storage/nexora-foundry-final_b3ed61e8.png",
+    icon: Cpu,
+    tone: "cyan",
+  },
+] as const;
+
+type Product = (typeof products)[number];
+
+const solutions = [
+  { id: "admin", number: "01", icon: FileText, title: { "zh-TW": "行政與文件自動化", "zh-CN": "行政与文档自动化", en: "Admin and document automation" }, text: { "zh-TW": "把收件、擷取、審核與交接整理成可追蹤的流程，減少資訊來回搬運。", "zh-CN": "把收件、提取、审核与交接整理成可追踪的流程，减少信息来回搬运。", en: "Turn intake, extraction, review, and handoffs into a traceable flow with less information shuffling." }, product: "pulse" },
+  { id: "security", number: "02", icon: LockKeyhole, title: { "zh-TW": "資安與權限管理", "zh-CN": "资安与权限管理", en: "Security and access management" }, text: { "zh-TW": "建立清楚的帳號、裝置與登入風險視圖，把安全日常化。", "zh-CN": "建立清晰的账号、设备与登录风险视图，让安全成为日常。", en: "Create a clear view of identities, devices, and login risk so security becomes part of everyday work." }, product: "aegis" },
+  { id: "insight", number: "03", icon: Gauge, title: { "zh-TW": "營運資料分析", "zh-CN": "运营数据分析", en: "Operational data analysis" }, text: { "zh-TW": "把分散的營運資料變成團隊讀得懂、用得上的共同脈絡。", "zh-CN": "把分散的运营数据变成团队看得懂、用得上的共同脉络。", en: "Turn fragmented operating data into shared context your team can read and use." }, product: "lattice" },
+  { id: "edge", number: "04", icon: Network, title: { "zh-TW": "企業內部 AI 部署", "zh-CN": "企业内部 AI 部署", en: "On-site AI deployment" }, text: { "zh-TW": "讓敏感資料在需要被保護的環境裡運作，同時保留 AI 協作的彈性。", "zh-CN": "让敏感数据在需要被保护的环境里运行，同时保留 AI 协作的灵活性。", en: "Keep sensitive data in the environment that protects it while preserving the flexibility of AI collaboration." }, product: "foundry" },
+] as const;
+
+const articleData = [
+  { tag: { "zh-TW": "趨勢觀察", "zh-CN": "趋势观察", en: "Trend note" }, title: { "zh-TW": "AI 導入不是換一個工具，而是重新理解工作流", "zh-CN": "AI 导入不是换一个工具，而是重新理解工作流", en: "Adopting AI starts with understanding the work, not adding another tool" }, read: { "zh-TW": "6 分鐘閱讀 · 範例文章", "zh-CN": "6 分钟阅读 · 示例文章", en: "6 min read · Example article" }, tone: "cyan" },
+  { tag: { "zh-TW": "導入指南", "zh-CN": "导入指南", en: "Field guide" }, title: { "zh-TW": "中小企業建立第一個 AI 流程前，先問這五個問題", "zh-CN": "中小企业建立第一个 AI 流程前，先问这五个问题", en: "Five questions to ask before building your first AI workflow" }, read: { "zh-TW": "8 分鐘閱讀 · 範例文章", "zh-CN": "8 分钟阅读 · 示例文章", en: "8 min read · Example article" }, tone: "violet" },
+  { tag: { "zh-TW": "資安清單", "zh-CN": "资安清单", en: "Security checklist" }, title: { "zh-TW": "一份給成長型團隊的 AI 資料安全檢查清單", "zh-CN": "一份给成长型团队的 AI 数据安全检查清单", en: "An AI data security checklist for growing teams" }, read: { "zh-TW": "4 分鐘閱讀 · 範例文章", "zh-CN": "4 分钟阅读 · 示例文章", en: "4 min read · Example article" }, tone: "mint" },
+];
+
+const faqs = [
+  { q: { "zh-TW": "NEXORA 適合什麼規模的企業？", "zh-CN": "NEXORA 适合什么规模的企业？", en: "What size of business is NEXORA for?" }, a: { "zh-TW": "NEXORA 聚焦中小型企業與成長型團隊，提供可從單一流程開始、再逐步擴展的模組化工具。實際適配度仍會依資料環境、流程複雜度與治理需求評估。", "zh-CN": "NEXORA 聚焦中小型企业与成长型团队，提供可从单一流程开始、再逐步扩展的模块化工具。实际适配度仍会依据数据环境、流程复杂度与治理需求评估。", en: "NEXORA is designed for small and medium businesses and growing teams. Each module can start with one workflow and expand over time; fit depends on your data environment, process complexity, and governance needs." } },
+  { q: { "zh-TW": "可以只導入其中一項產品嗎？", "zh-CN": "可以只导入其中一项产品吗？", en: "Can we start with one product?" }, a: { "zh-TW": "可以。四項產品可獨立評估，也能在需求成熟後逐步串接。初次討論會先聚焦在一個明確工作場景，而不是一次改造所有系統。", "zh-CN": "可以。四项产品可独立评估，也能在需求成熟后逐步串接。初次讨论会先聚焦在一个明确工作场景，而不是一次改造所有系统。", en: "Yes. The four products can be evaluated independently and connected as your needs mature. An initial conversation focuses on one clear work scenario rather than changing every system at once." } },
+  { q: { "zh-TW": "產品是否支援企業內部部署？", "zh-CN": "产品是否支持企业内部部署？", en: "Do you support on-site deployment?" }, a: { "zh-TW": "Nexora Foundry 是為企業內部 AI 處理需求設計的產品方向。部署方式、硬體規格與資料邊界會依企業環境進行技術評估，不以單一方案套用。", "zh-CN": "Nexora Foundry 是为企业内部 AI 处理需求设计的产品方向。部署方式、硬件规格与数据边界会依据企业环境进行技术评估，不以单一方案套用。", en: "Nexora Foundry is designed for on-site AI processing. Deployment, hardware sizing, and data boundaries are assessed against each environment rather than prescribed as one fixed setup." } },
+  { q: { "zh-TW": "網站上的數據與文章是真實案例嗎？", "zh-CN": "网站上的数据与文章是真实案例吗？", en: "Are the metrics and articles real customer cases?" }, a: { "zh-TW": "不是。本站目前使用的文章、畫面與狀態數據均為示範內容，已在相關位置標示 Example 或 Demo；網站不宣稱真實客戶成果或未經證實的效益。", "zh-CN": "不是。本站目前使用的文章、画面与状态数据均为示例内容，已在相关位置标示 Example 或 Demo；网站不宣称真实客户成果或未经证实的效益。", en: "No. The articles, interface states, and metrics on this site are examples marked as Example or Demo. The site does not claim customer outcomes or unverified benefits." } },
+];
+
+function Meta({ title, description }: { title: string; description: string }) {
+  const { lang } = useSite();
+  useEffect(() => {
+    document.title = title;
+    document.documentElement.lang = lang === "en" ? "en" : lang;
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute("content", description);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute("content", title);
+    const ogDescription = document.querySelector('meta[property="og:description"]');
+    if (ogDescription) ogDescription.setAttribute("content", description);
+  }, [description, lang, title]);
+  return null;
 }
+
+function Eyebrow({ children, index }: { children: ReactNode; index?: string }) {
+  return <div className="eyebrow"><span className="eyebrow-dot" />{index && <span className="eyebrow-index">{index}</span>}<span>{children}</span></div>;
+}
+
+function PrimaryButton({ href, children }: { href: string; children: ReactNode }) {
+  return <Link href={href} className="button button-primary">{children}<ArrowUpRight size={16} /></Link>;
+}
+
+function SecondaryButton({ href, children }: { href: string; children: ReactNode }) {
+  return <Link href={href} className="button button-secondary">{children}<ArrowRight size={16} /></Link>;
+}
+
+function SignalRail({ label }: { label: string }) {
+  return <div className="signal-rail" aria-hidden="true"><span className="rail-line" /><span className="rail-dot" /><span className="rail-label">{label}</span></div>;
+}
+
+function HeroConsole() {
+  const { lang } = useSite();
+  const small = lang === "en" ? "LIVE CONTEXT" : lang === "zh-CN" ? "实时脉络" : "即時脈絡";
+  return <div className="hero-console" aria-label="Decorative operational intelligence console">
+    <div className="console-top"><span className="console-kicker">NXR / SIGNAL CORE</span><span className="console-live"><i /> {small}</span></div>
+    <div className="console-graph"><span className="graph-line line-one" /><span className="graph-line line-two" /><span className="graph-node node-a" /><span className="graph-node node-b" /><span className="graph-node node-c" /><span className="graph-node node-d" /><span className="graph-cross" /></div>
+    <div className="console-bottom"><span>{lang === "en" ? "WORKFLOWS" : lang === "zh-CN" ? "工作流" : "工作流"}<b>04</b></span><span>{lang === "en" ? "SIGNALS" : lang === "zh-CN" ? "信号" : "訊號"}<b>28</b></span><span>{lang === "en" ? "POLICY" : lang === "zh-CN" ? "策略" : "政策"}<b>ON</b></span></div>
+  </div>;
+}
+
+function ProductVisual({ product, detail = false }: { product: Product; detail?: boolean }) {
+  const { lang } = useSite();
+  const visualLabel = tx(product.name, lang);
+  return <div className={`${detail ? "detail-visual" : "product-image-wrap"} product-${product.slug}`}>
+    <div className="visual-fallback" role="img" aria-label={visualLabel} data-visual-source="NEXORA signal diagram"><span className="fallback-orbit" /><span className="fallback-orbit orbit-small" /><span className="fallback-core" /><span className="fallback-path path-one" /><span className="fallback-path path-two" /><span className="fallback-status">NXR / {product.number} · SIGNAL READY</span></div>
+    <span className={detail ? "visual-caption" : "image-index"}>{detail ? `NXR / ${product.number} · PRODUCT SIGNAL` : `NXR / ${product.number}`}</span>
+  </div>;
+}
+
+function ProductCard({ product }: { product: Product }) {
+  const { lang } = useSite();
+  const Icon = product.icon;
+  return <Link href={`/products/${product.slug}`} className={`product-card tone-${product.tone}`}>
+    <div className="product-card-top"><span className="product-number">{product.number} / 04</span><span className="product-icon"><Icon size={19} strokeWidth={1.5} /></span></div>
+    <ProductVisual product={product} />
+    <div className="product-card-content"><p className="card-category">{tx(product.category, lang)}</p><h3>{tx(product.name, lang)}</h3><p>{tx(product.summary, lang)}</p><span className="text-link">{lang === "en" ? "View system" : lang === "zh-CN" ? "查看系统" : "查看系統"}<ArrowUpRight size={15} /></span></div>
+  </Link>;
+}
+
+function HomeCTA() {
+  const { lang } = useSite();
+  return <section className="cta-band"><div className="container cta-inner"><div><Eyebrow index="NXR / NEXT">{lang === "en" ? "A clearer next step" : lang === "zh-CN" ? "更清晰的下一步" : "更清晰的下一步"}</Eyebrow><h2>{lang === "en" ? "Start with one workflow worth understanding." : lang === "zh-CN" ? "从一个值得理解的工作流开始。" : "從一個值得理解的工作流開始。"}</h2></div><PrimaryButton href="/contact">{lang === "en" ? "Book a product demo" : lang === "zh-CN" ? "预约产品演示" : "預約產品展示"}</PrimaryButton></div></section>;
+}
+
+export function Home() {
+  const { lang } = useSite();
+  return <>
+    <Meta title="NEXORA 智核科技｜讓科技理解工作" description="NEXORA 智核科技為中小企業提供 AI 自動化、資料安全、營運洞察與企業內部 AI 工具。" />
+    <section className="hero-section">
+      <div className="hero-grid-lines" aria-hidden="true" />
+      <div className="container hero-layout">
+        <div className="hero-copy"><Eyebrow index="NXR / 00">{lang === "en" ? "Intelligence for everyday operations" : lang === "zh-CN" ? "为日常运营而生的智能" : "為日常營運而生的智慧"}</Eyebrow><h1>{lang === "en" ? <>Let technology<br /><em>understand work.</em></> : lang === "zh-CN" ? <>让科技<br /><em>理解工作。</em></> : <>讓科技<br /><em>理解工作。</em></>}</h1><p className="hero-lede">{lang === "en" ? "NEXORA helps small and medium businesses automate the repeatable, protect the important, and see what comes next." : lang === "zh-CN" ? "NEXORA 协助中小企业自动化重复工作、保护重要资料，并看见下一步。" : "NEXORA 協助中小企業自動化重複工作、保護重要資料，並看見下一步。"}</p><div className="hero-actions"><PrimaryButton href="/products">{lang === "en" ? "Explore products" : lang === "zh-CN" ? "探索产品" : "探索產品"}</PrimaryButton><SecondaryButton href="/contact">{lang === "en" ? "Book a demo" : lang === "zh-CN" ? "预约演示" : "預約展示"}</SecondaryButton></div><div className="hero-note"><span /> {lang === "en" ? "Built for the work behind the work." : lang === "zh-CN" ? "为工作背后的工作而设计。" : "為工作背後的工作而設計。"}</div></div>
+        <div className="hero-art"><div className="hero-orbit orbit-a" /><div className="hero-orbit orbit-b" /><img src="/manus-storage/nexora-hero-network_4382ed33.png" alt={lang === "en" ? "Abstract enterprise intelligence network with connected data signals" : lang === "zh-CN" ? "连接数据讯号的抽象企业智能网络" : "連結資料訊號的抽象企業智慧網路"} /><div className="hero-art-overlay" /><HeroConsole /><div className="hero-coordinate">25°02' N<br />121°33' E</div></div>
+      </div>
+      <div className="container hero-foot"><span>NEXORA / INTELLIGENCE SYSTEMS</span><span className="scroll-cue"><i /> {lang === "en" ? "Scroll to map the system" : lang === "zh-CN" ? "向下查看系统" : "向下查看系統"}</span></div>
+    </section>
+    <section className="product-intro section-dark" id="products"><div className="container"><div className="section-heading split-heading"><div><Eyebrow index="01">{lang === "en" ? "One system, four starting points" : lang === "zh-CN" ? "一套系统，四个起点" : "一套系統，四個起點"}</Eyebrow><h2>{lang === "en" ? <>Make the <em>work</em><br />flow clearer.</> : lang === "zh-CN" ? <>让工作<br /><em>流动得更清晰。</em></> : <>讓工作<br /><em>流動得更清晰。</em></>}</h2></div><p>{lang === "en" ? "From the first form to the final decision, NEXORA connects the signals that keep a business moving." : lang === "zh-CN" ? "从第一张表单到最后一个决策，NEXORA 连接让企业持续前进的关键讯号。" : "從第一張表單到最後一個決策，NEXORA 連結讓企業持續前進的關鍵訊號。"}</p></div><div className="product-grid">{products.map((product) => <ProductCard key={product.slug} product={product} />)}</div></div></section>
+    <section className="principle-section"><div className="container principle-grid"><SignalRail label="NXR / PRINCIPLE" /><div className="principle-copy"><Eyebrow index="02">{lang === "en" ? "Our point of view" : lang === "zh-CN" ? "我们的观点" : "我們的觀點"}</Eyebrow><h2>{lang === "en" ? "Technology should return attention to people." : lang === "zh-CN" ? "科技應該把注意力還給人。" : "科技應該把注意力還給人。"}</h2><p>{lang === "en" ? "We design systems that reduce noise without hiding the reasoning. The result is not more dashboards to maintain, but more room for teams to decide, create, and grow." : lang === "zh-CN" ? "我们设计能减少噪音、却不隐藏判断过程的系统。结果不是更多需要维护的仪表板，而是让团队拥有更多时间去决策、创造与成长。" : "我們設計能減少噪音、卻不隱藏判斷過程的系統。結果不是更多需要維護的儀表板，而是讓團隊擁有更多時間去決策、創造與成長。"}</p><Link href="/about" className="arrow-link">{lang === "en" ? "See how we think" : lang === "zh-CN" ? "了解我们的想法" : "了解我們的想法"}<ArrowRight size={16} /></Link></div><div className="principle-mark" aria-hidden="true"><div className="mark-core"><Sparkles size={28} /></div><span className="mark-label">SIGNAL<br />BECOMES<br />CONTEXT</span></div></div></section>
+    <section className="solutions-preview section-dark"><div className="container"><div className="section-heading split-heading"><div><Eyebrow index="03">{lang === "en" ? "Designed around needs" : lang === "zh-CN" ? "围绕需求设计" : "圍繞需求設計"}</Eyebrow><h2>{lang === "en" ? <>A practical path<br /><em>into AI.</em></> : lang === "zh-CN" ? <>一条务实的<br /><em>AI 之路。</em></> : <>一條務實的<br /><em>AI 之路。</em></>}</h2></div><Link href="/solutions" className="arrow-link">{lang === "en" ? "View solutions" : lang === "zh-CN" ? "查看解决方案" : "查看解決方案"}<ArrowUpRight size={16} /></Link></div><div className="solution-list">{solutions.map((solution) => { const Icon = solution.icon; return <Link href={`/products/${solution.product}`} className="solution-row" key={solution.id}><span className="solution-number">{solution.number}</span><span className="solution-icon"><Icon size={20} /></span><span className="solution-title">{tx(solution.title, lang)}</span><span className="solution-text">{tx(solution.text, lang)}</span><ArrowUpRight className="solution-arrow" size={18} /></Link>; })}</div></div></section>
+    <HomeCTA />
+  </>;
+}
+
+function PageHeader({ eyebrow, title, intro, index = "00" }: { eyebrow: Copy; title: ReactNode; intro: Copy; index?: string }) {
+  const { lang } = useSite();
+  return <section className="page-header"><div className="container page-header-grid"><SignalRail label={`NXR / ${index}`} /><div><Eyebrow index={index}>{tx(eyebrow, lang)}</Eyebrow><h1>{title}</h1><p className="page-intro">{tx(intro, lang)}</p></div></div></section>;
+}
+
+export function AboutPage() {
+  const { lang } = useSite();
+  const values = [
+    { icon: Gauge, title: { "zh-TW": "效率", "zh-CN": "效率", en: "Efficiency" }, text: { "zh-TW": "把時間還給需要判斷的工作，而不是讓團隊追著流程跑。", "zh-CN": "把时间还给需要判断的工作，而不是让团队追着流程跑。", en: "Return time to the work that needs judgment, not the work of chasing process." } },
+    { icon: ShieldCheck, title: { "zh-TW": "安全", "zh-CN": "安全", en: "Security" }, text: { "zh-TW": "清楚定義資料邊界、權限與風險，讓安全成為日常設計。", "zh-CN": "清晰定义数据边界、权限与风险，让安全成为日常设计。", en: "Make data boundaries, access, and risk legible in everyday design." } },
+    { icon: Radar, title: { "zh-TW": "洞察", "zh-CN": "洞察", en: "Insight" }, text: { "zh-TW": "不只收集數據，更幫助團隊理解訊號與下一個選擇。", "zh-CN": "不只收集数据，更帮助团队理解讯号与下一个选择。", en: "Go beyond collecting data to make signals and next choices understandable." } },
+    { icon: ArrowDownRight, title: { "zh-TW": "成長", "zh-CN": "成长", en: "Growth" }, text: { "zh-TW": "從一個可衡量的場景開始，隨著企業成熟而擴展系統。", "zh-CN": "从一个可衡量的场景开始，随着企业成熟而扩展系统。", en: "Start with one measurable scenario and expand as the business matures." } },
+  ];
+  return <><Meta title={lang === "en" ? "About NEXORA" : lang === "zh-CN" ? "关于 NEXORA" : "關於 NEXORA"} description={lang === "en" ? "The mission and principles behind NEXORA 智核科技." : "NEXORA 智核科技的使命與核心價值。"} /><PageHeader index="01" eyebrow={{ "zh-TW": "關於 NEXORA", "zh-CN": "关于 NEXORA", en: "About NEXORA" }} title={lang === "en" ? <>We build the <em>quiet layer</em><br />behind better work.</> : lang === "zh-CN" ? <>我们打造更好工作<br />背后的<em>安静层。</em></> : <>我們打造更好工作<br />背後的<em>安靜層。</em></>} intro={{ "zh-TW": "NEXORA 智核科技是一個專注於中小企業的 AI 工作系統團隊。我們把自動化、資料安全與營運洞察放在同一個清晰脈絡裡。", "zh-CN": "NEXORA 智核科技是一支专注于中小企业的 AI 工作系统团队。我们把自动化、数据安全与运营洞察放在同一个清晰脉络里。", en: "NEXORA is an AI work systems team focused on small and medium businesses. We bring automation, data security, and operational intelligence into one clear context." }} /><section className="about-statement"><div className="container statement-grid"><div className="statement-big">{lang === "en" ? "Make room for the work that moves the business forward." : lang === "zh-CN" ? "为真正推动企业前进的工作，腾出空间。" : "為真正推動企業前進的工作，騰出空間。"}</div><div className="statement-side"><p className="mini-label">NXR / MISSION</p><p>{lang === "en" ? "Every growing business carries invisible work: copying, checking, searching, reconciling. We turn that invisible layer into a system people can understand and improve." : lang === "zh-CN" ? "每个成长中的企业都有一层看不见的工作：复制、检查、搜索、核对。我们把这层隐形工作变成一套人们看得懂、也能持续改善的系统。" : "每個成長中的企業都有一層看不見的工作：複製、檢查、搜尋、核對。我們把這層隱形工作變成一套人們看得懂、也能持續改善的系統。"}</p></div></div></section><section className="values-section section-dark"><div className="container"><div className="section-heading"><Eyebrow index="02">{lang === "en" ? "The way we work" : lang === "zh-CN" ? "我们的工作方式" : "我們的工作方式"}</Eyebrow><h2>{lang === "en" ? "Four principles. One <em>clearer</em> direction." : lang === "zh-CN" ? <>四个原则，指向同一个<em>清晰</em>方向。</> : <>四個原則，指向同一個<em>清晰</em>方向。</>}</h2></div><div className="values-grid">{values.map((value, index) => { const Icon = value.icon; return <div className="value-cell" key={tx(value.title, lang)}><span className="value-index">0{index + 1}</span><Icon size={24} strokeWidth={1.4} /><h3>{tx(value.title, lang)}</h3><p>{tx(value.text, lang)}</p></div>; })}</div></div></section><section className="about-practice"><div className="container practice-grid"><div><Eyebrow index="03">{lang === "en" ? "What we solve" : lang === "zh-CN" ? "我们解决什么" : "我們解決什麼"}</Eyebrow><h2>{lang === "en" ? "The cost of unclear work is bigger than it looks." : lang === "zh-CN" ? "不清晰的工作，代价比想象中更大。" : "不清晰的工作，代價比想像中更大。"}</h2></div><div className="practice-list"><p><span>01</span>{lang === "en" ? "Repetition hides the expertise your team could be using elsewhere." : lang === "zh-CN" ? "重复工作掩盖了团队本可以用在其他地方的专业能力。" : "重複工作掩蓋了團隊本可以用在其他地方的專業能力。"}</p><p><span>02</span>{lang === "en" ? "Unclear access turns ordinary collaboration into avoidable risk." : lang === "zh-CN" ? "不清晰的权限让普通协作变成可以避免的风险。" : "不清楚的權限讓普通協作變成可以避免的風險。"}</p><p><span>03</span>{lang === "en" ? "Disconnected data makes every decision start from zero." : lang === "zh-CN" ? "彼此断开的数据让每次决策都从零开始。" : "彼此斷開的資料讓每次決策都從零開始。"}</p></div></div></section><HomeCTA /></>;
+}
+
+export function ProductsPage() {
+  const { lang } = useSite();
+  return <><Meta title={lang === "en" ? "Products | NEXORA" : lang === "zh-CN" ? "产品｜NEXORA" : "產品｜NEXORA"} description={lang === "en" ? "Explore NEXORA's four products for automation, security, intelligence, and edge AI." : "探索 NEXORA 的自動化、資安、營運洞察與邊緣 AI 產品。"} /><PageHeader index="02" eyebrow={{ "zh-TW": "產品系統", "zh-CN": "产品系统", en: "Product system" }} title={lang === "en" ? <>Four ways to make<br /><em>work clearer.</em></> : lang === "zh-CN" ? <>四种方式，让工作<br /><em>更清晰。</em></> : <>四種方式，讓工作<br /><em>更清晰。</em></>} intro={{ "zh-TW": "從一個流程、一組權限或一個資料視圖開始，依企業真正的需求逐步建立更好的工作系統。", "zh-CN": "从一个流程、一组权限或一个数据视图开始，依企业真正的需求逐步建立更好的工作系统。", en: "Start with one workflow, one access layer, or one view of data, then build a better work system around what the business actually needs." }} /><section className="products-listing section-dark"><div className="container"><div className="listing-intro"><Eyebrow index="NXR / 04">{lang === "en" ? "The four modules" : lang === "zh-CN" ? "四个模块" : "四個模組"}</Eyebrow><p>{lang === "en" ? "Each product stands on its own. Together, they create a connected operational layer." : lang === "zh-CN" ? "每个产品都能独立运作，组合后形成连接的运营层。" : "每個產品都能獨立運作，組合後形成連結的營運層。"}</p></div><div className="product-list-grid">{products.map((product) => <ProductCard key={product.slug} product={product} />)}</div></div></section><HomeCTA /></>;
+}
+
+export function ProductDetailPage() {
+  const { lang } = useSite();
+  const [, params] = useRoute<{ slug: string }>("/products/:slug");
+  const product = products.find((item) => item.slug === params?.slug);
+  if (!product) return <NotFoundPage />;
+  const Icon = product.icon;
+  const otherProducts = products.filter((item) => item.slug !== product.slug);
+  return <><Meta title={`${tx(product.name, lang)} | NEXORA`} description={tx(product.summary, lang)} /><section className={`product-detail-hero tone-${product.tone}`}><div className="container detail-hero-grid"><div className="detail-copy"><Link href="/products" className="back-link"><ArrowRight size={15} className="back-arrow" />{lang === "en" ? "All products" : lang === "zh-CN" ? "全部产品" : "全部產品"}</Link><Eyebrow index={`${product.number} / 04`}>{tx(product.category, lang)}</Eyebrow><div className="detail-icon"><Icon size={28} strokeWidth={1.4} /></div><h1>{tx(product.name, lang)}</h1><h2>{tx(product.strap, lang)}</h2><p>{tx(product.summary, lang)}</p><PrimaryButton href="/contact">{lang === "en" ? "Book a product demo" : lang === "zh-CN" ? "预约产品演示" : "預約產品展示"}</PrimaryButton></div><ProductVisual product={product} detail /></div></section><section className="detail-body"><div className="container detail-body-grid"><div className="detail-sticky"><Eyebrow index="01">{lang === "en" ? "Why it exists" : lang === "zh-CN" ? "为什么存在" : "為什麼存在"}</Eyebrow><h2>{lang === "en" ? "The problem is not a lack of tools. It is a lack of context." : lang === "zh-CN" ? "问题不是缺少工具，而是缺少脉络。" : "問題不是缺少工具，而是缺少脈絡。"}</h2></div><div className="detail-content"><p className="detail-problem">{tx(product.problem, lang)}</p><div className="detail-section"><p className="mini-label">NXR / CAPABILITIES</p><h3>{lang === "en" ? "A system that stays legible as work moves." : lang === "zh-CN" ? "在工作流动时，系统依然清晰。" : "在工作流動時，系統依然清晰。"}</h3><ul className="feature-list">{list(product.features, lang).map((feature) => <li key={feature}><Check size={17} />{feature}</li>)}</ul></div><div className="detail-section usecase-section"><p className="mini-label">NXR / IN PRACTICE</p><h3>{lang === "en" ? "Where teams begin" : lang === "zh-CN" ? "团队从这里开始" : "團隊從這裡開始"}</h3><div className="usecase-grid">{list(product.useCases, lang).map((useCase, index) => <div className="usecase-item" key={useCase}><span>0{index + 1}</span><strong>{useCase}</strong></div>)}</div></div><div className="detail-section"><p className="mini-label">NXR / FOR WHOM</p><p className="audience-note">{tx(product.audience, lang)}</p></div></div></div></section><section className="other-products section-dark"><div className="container"><div className="section-heading"><Eyebrow index="02">{lang === "en" ? "Continue exploring" : lang === "zh-CN" ? "继续探索" : "繼續探索"}</Eyebrow><h2>{lang === "en" ? <>One signal rarely<br /><em>stands alone.</em></> : lang === "zh-CN" ? <>一个讯号很少<br /><em>独自发生。</em></> : <>一個訊號很少<br /><em>獨自發生。</em></>}</h2></div><div className="related-grid">{otherProducts.slice(0, 2).map((item) => <ProductCard key={item.slug} product={item} />)}</div></div></section><HomeCTA /></>;
+}
+
+function SolutionImage({ product }: { product: Product }) {
+  const { lang } = useSite();
+  return <div className={`solution-detail-image product-${product.slug}`}><div className="solution-fallback" role="img" aria-label={tx(product.name, lang)}><span>NXR / {product.number} · SIGNAL READY</span></div></div>;
+}
+
+export function SolutionsPage() {
+  const { lang } = useSite();
+  return <><Meta title={lang === "en" ? "Solutions | NEXORA" : lang === "zh-CN" ? "解决方案｜NEXORA" : "解決方案｜NEXORA"} description={lang === "en" ? "Practical AI paths for administration, security, insight, and on-site deployment." : "為行政、資安、洞察與內部部署設計的實務 AI 解決方案。"} /><PageHeader index="03" eyebrow={{ "zh-TW": "解決方案", "zh-CN": "解决方案", en: "Solutions" }} title={lang === "en" ? <>Begin with the<br /><em>work that matters.</em></> : lang === "zh-CN" ? <>从真正重要的<br /><em>工作开始。</em></> : <>從真正重要的<br /><em>工作開始。</em></>} intro={{ "zh-TW": "不從技術名詞開始，而是從企業每天正在發生的工作開始。選一個場景，建立可理解、可持續的改善路徑。", "zh-CN": "不从技术名词开始，而是从企业每天正在发生的工作开始。选择一个场景，建立可理解、可持续的改善路径。", en: "Do not start with technology terms. Start with the work happening every day, choose one scenario, and build a path that can be understood and improved." }} /><section className="solution-detail-list section-dark"><div className="container">{solutions.map((solution, index) => { const Icon = solution.icon; const product = products.find((item) => item.slug === solution.product)!; return <article className="solution-detail-row" key={solution.id}><div className="solution-detail-label"><span>{solution.number}</span><Icon size={22} /></div><div className="solution-detail-copy"><p className="card-category">{tx(solution.title, lang)}</p><h2>{tx(solution.title, lang)}</h2><p>{tx(solution.text, lang)}</p><Link href={`/products/${solution.product}`} className="text-link">{lang === "en" ? `Explore ${tx(product.name, lang)}` : lang === "zh-CN" ? `查看 ${tx(product.name, lang)}` : `查看 ${tx(product.name, lang)}`}<ArrowUpRight size={15} /></Link></div><SolutionImage product={product} /></article>; })}</div></section><HomeCTA /></>;
+}
+
+function ArticleCard({ article }: { article: (typeof articleData)[number] }) {
+  const { lang } = useSite();
+  return <article className={`article-card tone-${article.tone}`}><div className="article-art"><div className="article-lines" /><span>EXAMPLE / 2026</span></div><div className="article-copy"><p className="card-category">{tx(article.tag, lang)}</p><h3>{tx(article.title, lang)}</h3><p className="article-read">{tx(article.read, lang)}</p><span className="text-link">{lang === "en" ? "Read note" : lang === "zh-CN" ? "阅读文章" : "閱讀文章"}<ArrowUpRight size={15} /></span></div></article>;
+}
+
+export function ResourcesPage() {
+  const { lang } = useSite();
+  const [openFaq, setOpenFaq] = useState(0);
+  return <><Meta title={lang === "en" ? "Resources | NEXORA" : lang === "zh-CN" ? "资源中心｜NEXORA" : "資源中心｜NEXORA"} description={lang === "en" ? "Example articles, AI adoption guidance, security checklists, and FAQs from NEXORA." : "NEXORA 的示範文章、AI 導入指南、資安清單與常見問題。"} /><PageHeader index="04" eyebrow={{ "zh-TW": "資源中心", "zh-CN": "资源中心", en: "Resource center" }} title={lang === "en" ? <>Make the next<br /><em>decision clearer.</em></> : lang === "zh-CN" ? <>让下一个<br /><em>决定更清晰。</em></> : <>讓下一個<br /><em>決定更清晰。</em></>} intro={{ "zh-TW": "把 AI 導入、資料治理與營運改善拆成容易理解的觀點。以下內容目前皆為示範文章，不代表真實客戶案例。", "zh-CN": "把 AI 导入、数据治理与运营改善拆成容易理解的观点。以下内容目前均为示例文章，不代表真实客户案例。", en: "Clear perspectives on AI adoption, data governance, and operational improvement. All content below is currently an example and does not represent customer cases." }} /><section className="resources-articles section-dark"><div className="container"><div className="section-heading split-heading"><div><Eyebrow index="NXR / NOTES">{lang === "en" ? "Example notes" : lang === "zh-CN" ? "示范文章" : "示範文章"}</Eyebrow><h2>{lang === "en" ? <>Ideas for the<br /><em>work ahead.</em></> : lang === "zh-CN" ? <>给下一步<br /><em>工作的想法。</em></> : <>給下一步<br /><em>工作的想法。</em></>}</h2></div><span className="example-badge">EXAMPLE CONTENT / 非真实案例</span></div><div className="articles-grid">{articleData.map((article) => <ArticleCard key={tx(article.title, lang)} article={article} />)}</div></div></section><section className="faq-section"><div className="container faq-grid"><div><Eyebrow index="NXR / FAQ">FAQ</Eyebrow><h2>{lang === "en" ? <>Questions before<br /><em>the first conversation.</em></> : lang === "zh-CN" ? <>第一次对话前，<br /><em>你可能会问。</em></> : <>第一次對話前，<br /><em>你可能會問。</em></>}</h2><p>{lang === "en" ? "Still have a question? Bring it to the team." : lang === "zh-CN" ? "还有问题？欢迎带来和团队一起讨论。" : "還有問題？歡迎帶來和團隊一起討論。"}</p><Link href="/contact" className="arrow-link">{lang === "en" ? "Ask NEXORA" : lang === "zh-CN" ? "联系 NEXORA" : "聯絡 NEXORA"}<ArrowRight size={16} /></Link></div><div className="faq-list">{faqs.map((faq, index) => <div className={openFaq === index ? "faq-item open" : "faq-item"} key={tx(faq.q, lang)}><button onClick={() => setOpenFaq(openFaq === index ? -1 : index)} aria-expanded={openFaq === index}><span>{tx(faq.q, lang)}</span><ChevronDown size={19} /></button><div className="faq-answer"><p>{tx(faq.a, lang)}</p></div></div>)}</div></div></section><HomeCTA /></>;
+}
+
+export function ContactPage() {
+  const { lang } = useSite();
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const labels = { name: { "zh-TW": "姓名", "zh-CN": "姓名", en: "Name" }, company: { "zh-TW": "公司名稱", "zh-CN": "公司名称", en: "Company" }, email: { "zh-TW": "工作 Email", "zh-CN": "工作 Email", en: "Work email" }, need: { "zh-TW": "需求類型", "zh-CN": "需求类型", en: "What can we help with?" }, message: { "zh-TW": "想先聊什麼？", "zh-CN": "想先聊什么？", en: "What would you like to discuss?" } };
+  const required = lang === "en" ? "Please complete this field." : lang === "zh-CN" ? "请完成此字段。" : "請完成此欄位。";
+  const emailError = lang === "en" ? "Enter a valid work email." : lang === "zh-CN" ? "请输入有效的工作 Email。" : "請輸入有效的工作 Email。";
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); const data = new FormData(event.currentTarget); const nextErrors: Record<string, string> = {}; ["name", "company", "email", "need", "message"].forEach((key) => { if (!String(data.get(key) || "").trim()) nextErrors[key] = required; }); const email = String(data.get("email") || ""); if (email && !/^\S+@\S+\.\S+$/.test(email)) nextErrors.email = emailError; setErrors(nextErrors); if (Object.keys(nextErrors).length === 0) { setSubmitted(true); event.currentTarget.reset(); } };
+  return <><Meta title={lang === "en" ? "Contact NEXORA" : lang === "zh-CN" ? "联系 NEXORA" : "聯絡 NEXORA"} description={lang === "en" ? "Book a NEXORA product demo or start a conversation about your operational needs." : "預約 NEXORA 產品展示，與我們討論企業營運需求。"} /><PageHeader index="05" eyebrow={{ "zh-TW": "聯絡我們", "zh-CN": "联系我们", en: "Contact" }} title={lang === "en" ? <>Bring us the<br /><em>work behind the work.</em></> : lang === "zh-CN" ? <>把工作背后的<br /><em>问题带来。</em></> : <>把工作背後的<br /><em>問題帶來。</em></>} intro={{ "zh-TW": "告訴我們目前最想釐清的工作場景，我們會從需求、資料環境與導入節奏開始討論。", "zh-CN": "告诉我们目前最想厘清的工作场景，我们会从需求、数据环境与导入节奏开始讨论。", en: "Tell us about the work scenario you want to clarify. We will start with your needs, data environment, and pace of adoption." }} /><section className="contact-section section-dark"><div className="container contact-grid"><div className="contact-aside"><Eyebrow index="NXR / HELLO">{lang === "en" ? "Start a conversation" : lang === "zh-CN" ? "开始对话" : "開始對話"}</Eyebrow><h2>{lang === "en" ? "No pitch deck required." : lang === "zh-CN" ? "不需要准备提案简报。" : "不需要準備提案簡報。"}</h2><p>{lang === "en" ? "A useful first conversation can begin with one repetitive task, one unclear risk, or one question you keep asking in meetings." : lang === "zh-CN" ? "一次有用的对话，可以从一个重复任务、一个不清晰的风险，或一个总在会议中出现的问题开始。" : "一次有用的對話，可以從一個重複任務、一個不清楚的風險，或一個總在會議中出現的問題開始。"}</p><div className="contact-details"><div><span>{lang === "en" ? "Email" : "Email"}</span><a href="mailto:hello@nexora.example">hello@nexora.example</a></div><div><span>{lang === "en" ? "Office hours" : lang === "zh-CN" ? "办公时间" : "辦公時間"}</span><p>Mon–Fri / 09:30–18:30<br />Taipei time (GMT+8)</p></div></div></div><div className="contact-form-wrap">{submitted ? <div className="form-success"><div className="success-icon"><CircleCheck size={28} /></div><Eyebrow index="NXR / RECEIVED">{lang === "en" ? "Message received" : lang === "zh-CN" ? "已收到讯息" : "已收到訊息"}</Eyebrow><h2>{lang === "en" ? "Thank you. We will bring the right questions." : lang === "zh-CN" ? "谢谢，我们会带着合适的问题回来。" : "謝謝，我們會帶著合適的問題回來。"}</h2><p>{lang === "en" ? "This is a demo form, so no message was sent to a CRM. The success state is here to show the intended experience." : lang === "zh-CN" ? "这是一个示范表单，因此没有将讯息送往 CRM。此成功状态用于展示预期的互动体验。" : "這是一個示範表單，因此沒有將訊息送往 CRM。此成功狀態用來展示預期的互動體驗。"}</p><button className="button button-secondary" onClick={() => { setSubmitted(false); setErrors({}); }}>{lang === "en" ? "Send another message" : lang === "zh-CN" ? "再发送一则讯息" : "再送出一則訊息"}</button></div> : <form className="contact-form" onSubmit={handleSubmit} noValidate><div className="form-heading"><p className="mini-label">NXR / DEMO FORM</p><h2>{lang === "en" ? "Tell us where to look." : lang === "zh-CN" ? "告诉我们从哪里开始。" : "告訴我們從哪裡開始。"}</h2></div><div className="form-row"><label>{tx(labels.name, lang)}<input name="name" type="text" autoComplete="name" aria-invalid={Boolean(errors.name)} />{errors.name && <small>{errors.name}</small>}</label><label>{tx(labels.company, lang)}<input name="company" type="text" autoComplete="organization" aria-invalid={Boolean(errors.company)} />{errors.company && <small>{errors.company}</small>}</label></div><label>{tx(labels.email, lang)}<input name="email" type="email" autoComplete="email" placeholder="name@company.com" aria-invalid={Boolean(errors.email)} />{errors.email && <small>{errors.email}</small>}</label><label>{tx(labels.need, lang)}<select name="need" defaultValue=""><option value="" disabled>{lang === "en" ? "Select one" : lang === "zh-CN" ? "请选择" : "請選擇"}</option><option value="automation">{lang === "en" ? "Workflow automation" : lang === "zh-CN" ? "工作流自动化" : "工作流程自動化"}</option><option value="security">{lang === "en" ? "Security and access" : lang === "zh-CN" ? "资安与权限" : "資安與權限"}</option><option value="insight">{lang === "en" ? "Operational intelligence" : lang === "zh-CN" ? "运营洞察" : "營運洞察"}</option><option value="edge">{lang === "en" ? "On-site AI" : lang === "zh-CN" ? "内部 AI" : "內部 AI"}</option></select>{errors.need && <small>{errors.need}</small>}</label><label>{tx(labels.message, lang)}<textarea name="message" rows={5} aria-invalid={Boolean(errors.message)} placeholder={lang === "en" ? "A workflow, a question, or a constraint..." : lang === "zh-CN" ? "一个工作流、一个问题，或一个限制条件……" : "一個工作流程、一個問題，或一個限制條件……"} />{errors.message && <small>{errors.message}</small>}</label><div className="form-submit-row"><p>{lang === "en" ? "Demo content only. No CRM connection is made." : lang === "zh-CN" ? "示范内容。不会连接 CRM。" : "示範內容。不會連接 CRM。"}</p><button className="button button-primary" type="submit">{lang === "en" ? "Request a demo" : lang === "zh-CN" ? "预约产品演示" : "預約產品展示"}<ArrowUpRight size={16} /></button></div></form>}</div></div></section></>;
+}
+
+export function ProductionPage() {
+  const { lang } = useSite();
+  const rows = [
+    { label: { "zh-TW": "網站建置", "zh-CN": "网站构建", en: "Website build" }, value: { "zh-TW": "React 19、Vite、Tailwind CSS 4、Wouter、TypeScript", "zh-CN": "React 19、Vite、Tailwind CSS 4、Wouter、TypeScript", en: "React 19, Vite, Tailwind CSS 4, Wouter, TypeScript" } },
+    { label: { "zh-TW": "視覺生成", "zh-CN": "视觉生成", en: "Visual generation" }, value: { "zh-TW": "Manus 內建 AI 圖片生成：NEXORA hero、雙版本 mark、四張產品主視覺。", "zh-CN": "Manus 内置 AI 图片生成：NEXORA hero、双版本 mark、四张产品主视觉。", en: "Manus built-in AI image generation: the NEXORA hero, two mark variants, and four product visuals." } },
+    { label: { "zh-TW": "圖片來源", "zh-CN": "图片来源", en: "Image source" }, value: { "zh-TW": "本網站主視覺皆為本案生成資產；未使用現成品牌 Logo、真人肖像或外部圖片。", "zh-CN": "本网站主视觉均为本案生成资产；未使用现成品牌 Logo、真人肖像或外部图片。", en: "All main visuals are generated for this project; no existing brand logos, portraits, or external images are used." } },
+    { label: { "zh-TW": "字體與圖示", "zh-CN": "字体与图示", en: "Type and icons" }, value: { "zh-TW": "Space Grotesk、Noto Sans TC / SC、Lucide Icons。", "zh-CN": "Space Grotesk、Noto Sans TC / SC、Lucide Icons。", en: "Space Grotesk, Noto Sans TC / SC, and Lucide Icons." } },
+  ];
+  return <><Meta title={lang === "en" ? "Credits | NEXORA" : lang === "zh-CN" ? "制作说明｜NEXORA" : "製作說明｜NEXORA"} description={lang === "en" ? "Design and asset production notes for the NEXORA website." : "NEXORA 網站的設計與素材製作說明。"} /><PageHeader index="06" eyebrow={{ "zh-TW": "製作說明", "zh-CN": "制作说明", en: "Credits and notes" }} title={lang === "en" ? <>A transparent note<br />on <em>how this was made.</em></> : lang === "zh-CN" ? <>一份关于<br /><em>制作方式的说明。</em></> : <>一份關於<br /><em>製作方式的說明。</em></>} intro={{ "zh-TW": "這個頁面保留網站使用的工具、素材與設計決策，方便團隊後續維護與延伸。", "zh-CN": "这个页面保留网站使用的工具、素材与设计决策，方便团队后续维护与延伸。", en: "This page keeps a record of the tools, assets, and design decisions used to make the site easier to maintain and extend." }} /><section className="making-section section-dark"><div className="container making-grid"><div className="making-lede"><Eyebrow index="NXR / RECORD">{lang === "en" ? "Production record" : lang === "zh-CN" ? "制作记录" : "製作紀錄"}</Eyebrow><h2>{lang === "en" ? "Designed as a system, not a skin." : lang === "zh-CN" ? "这是一个系统，而不只是表皮。" : "這是一個系統，而不只是表皮。"}</h2><p>{lang === "en" ? "Signal Atelier guided the information architecture, content rhythm, interaction behavior, and visual assets. The brand system is intentionally specific so future pages can extend it without losing the original point of view." : lang === "zh-CN" ? "Signal Atelier 指导了信息架构、内容节奏、交互行为与视觉资产。品牌系统刻意保持明确，让未来页面可以延伸而不失去原本的观点。" : "Signal Atelier 引導資訊架構、內容節奏、互動行為與視覺資產。品牌系統刻意保持明確，讓未來頁面可以延伸而不失去原本的觀點。"}</p></div><div className="making-table">{rows.map((row) => <div className="making-row" key={tx(row.label, lang)}><span>{tx(row.label, lang)}</span><p>{tx(row.value, lang)}</p></div>)}</div></div></section><section className="references-section"><div className="container references-grid"><div><Eyebrow index="NXR / REFERENCES">{lang === "en" ? "Reference links" : lang === "zh-CN" ? "参考链接" : "參考連結"}</Eyebrow><h2>{lang === "en" ? "Open references used for craft." : lang === "zh-CN" ? "用于制作的公开参考。" : "用於製作的公開參考。"}</h2></div><div className="reference-links"><a href="https://fonts.google.com/specimen/Space+Grotesk" target="_blank" rel="noreferrer">Space Grotesk <ArrowUpRight size={15} /></a><a href="https://fonts.google.com/noto/specimen/Noto+Sans+TC" target="_blank" rel="noreferrer">Noto Sans TC <ArrowUpRight size={15} /></a><a href="https://lucide.dev/icons/" target="_blank" rel="noreferrer">Lucide Icons <ArrowUpRight size={15} /></a><a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noreferrer">WCAG accessibility reference <ArrowUpRight size={15} /></a></div></div></section></>;
+}
+
+export function NotFoundPage() {
+  const { lang } = useSite();
+  return <section className="not-found"><div className="container not-found-inner"><Eyebrow index="404">{lang === "en" ? "Signal not found" : lang === "zh-CN" ? "找不到讯号" : "找不到訊號"}</Eyebrow><h1>404<span>.</span></h1><p>{lang === "en" ? "This page is outside the current map. Let's route you back to the system." : lang === "zh-CN" ? "这个页面不在目前的地图里。让我们带你回到系统。" : "這個頁面不在目前的地圖裡。讓我們帶你回到系統。"}</p><PrimaryButton href="/">{lang === "en" ? "Return home" : lang === "zh-CN" ? "回到首页" : "回到首頁"}</PrimaryButton></div></section>;
+}
+
+export default Home;
