@@ -254,3 +254,58 @@ body.modal-open { overflow: hidden; }
 .header-signal span:nth-child(2) { animation-delay: -.7s; }.header-signal span:nth-child(3) { animation-delay: -1.4s; }
 @media (max-width: 720px) { .site-modal-backdrop { padding: 70px 0 0; }.site-modal { min-height: calc(100vh - 70px); border-left: 0; border-right: 0; }.modal-close { position: sticky; top: 12px; width: 38px; height: 38px; margin: 12px 16px -50px auto; }.signal-cursor { display: none; } }
 @media (prefers-reduced-motion: reduce) { .site-modal-backdrop, .hero-art img, .hero-art::after, .header-signal span, .visual-fallback::after, .visual-fallback .fallback-orbit, .ai-pulse, .signal-cursor { animation: none !important; } }
+
+
+/* Eryndex signal choreography｜雙色軌道與產品模組各自擁有不同運動邏輯，不以同一套動畫複製四次。 */
+@keyframes principle-orbit-green { 0% { transform: rotate(0deg) translateX(104px) scale(.86); } 25% { transform: rotate(102deg) translateX(104px) scale(1); } 50% { transform: rotate(204deg) translateX(104px) scale(.86); } 75% { transform: rotate(292deg) translateX(104px) scale(1.06); } 100% { transform: rotate(360deg) translateX(104px) scale(.86); } }
+@keyframes principle-orbit-violet { 0% { transform: rotate(180deg) translateX(84px) scale(.78); } 25% { transform: rotate(80deg) translateX(84px) scale(1); } 50% { transform: rotate(-18deg) translateX(84px) scale(.78); } 75% { transform: rotate(-112deg) translateX(84px) scale(1.04); } 100% { transform: rotate(-180deg) translateX(84px) scale(.78); } }
+.principle-mark { border-color: rgba(105,230,193,.36); }
+.principle-mark::before { border-color: rgba(163,139,255,.38); animation: principle-ring-violet 8s ease-in-out infinite; }
+.principle-mark::after { border-color: rgba(105,230,193,.28); animation: principle-ring-green 6.5s ease-in-out infinite reverse; }
+@keyframes principle-ring-violet { 0%,100% { transform: rotate(45deg) scale(1); } 50% { transform: rotate(225deg) scale(1.04,.94); } }
+@keyframes principle-ring-green { 0%,100% { transform: rotate(-25deg) scale(1); } 50% { transform: rotate(155deg) scale(.94,1.06); } }
+.principle-signal-dot { position: absolute; top: 50%; left: 50%; z-index: 3; width: 8px; height: 8px; margin: -4px; border-radius: 50%; transform-origin: 0 0; }
+.principle-signal-dot::after { content: ""; position: absolute; inset: -5px; border: 1px solid currentColor; border-radius: 50%; opacity: .24; }
+.dot-green { color: var(--mint); box-shadow: 0 0 18px var(--mint); animation: principle-orbit-green 6.2s linear infinite; }
+.dot-violet { color: var(--violet); box-shadow: 0 0 18px var(--violet); animation: principle-orbit-violet 5.1s linear infinite -2.1s; }
+
+/* Qadryn / branching workflow */
+.product-qadryn .fallback-orbit { top: 31%; left: 18%; width: 61%; height: 34%; border-radius: 48% 8% 52% 12%; transform: rotate(-14deg) skewX(-12deg); animation: qadryn-route 5.4s ease-in-out infinite; }
+.product-qadryn .orbit-small { top: 25%; left: 54%; width: 27%; height: 48%; border-radius: 8px; transform: rotate(38deg); animation: qadryn-branch 4.2s ease-in-out infinite -1.4s; }
+.product-qadryn .fallback-path.path-one { top: 61%; left: 14%; width: 70%; transform: rotate(-10deg); }
+.product-qadryn .fallback-path.path-two { top: 37%; left: 45%; width: 39%; transform: rotate(27deg); }
+.product-qadryn .signal-cursor { animation: qadryn-point 4.8s ease-in-out infinite; }
+@keyframes qadryn-route { 0%,100% { transform: rotate(-14deg) skewX(-12deg) translate(0,0); } 50% { transform: rotate(-7deg) skewX(-12deg) translate(8px,-5px); } }
+@keyframes qadryn-branch { 0%,100% { transform: rotate(38deg) scaleY(.92); } 50% { transform: rotate(53deg) scaleY(1.08); } }
+@keyframes qadryn-point { 0% { transform: translate(0,75px); } 32% { transform: translate(132px,18px); } 64% { transform: translate(192px,-48px); } 100% { transform: translate(0,75px); } }
+
+/* Vessyra / protective perimeter */
+.product-vessyra .fallback-orbit { top: 19%; left: 24%; width: 52%; height: 52%; border-radius: 21%; transform: rotate(45deg); animation: vessyra-shield 7s linear infinite; }
+.product-vessyra .orbit-small { top: 28%; left: 34%; width: 32%; height: 38%; border-radius: 50%; transform: rotate(-20deg); animation: vessyra-scan 3.8s ease-in-out infinite -1s; }
+.product-vessyra .fallback-path.path-one { top: 28%; left: 31%; width: 42%; transform: rotate(90deg); opacity: .45; }
+.product-vessyra .fallback-path.path-two { top: 68%; left: 29%; width: 46%; transform: rotate(-3deg); background: var(--mint); }
+.product-vessyra .signal-cursor { animation: vessyra-point 5.6s linear infinite; }
+@keyframes vessyra-shield { to { transform: rotate(405deg); } }
+@keyframes vessyra-scan { 0%,100% { transform: rotate(-20deg) scale(.86); opacity: .42; } 50% { transform: rotate(160deg) scale(1.13); opacity: 1; } }
+@keyframes vessyra-point { 0% { transform: translate(0,-67px); } 25% { transform: translate(90px,-8px); } 50% { transform: translate(0,70px); } 75% { transform: translate(-92px,2px); } 100% { transform: translate(0,-67px); } }
+
+/* Mireqon / data aggregation */
+.product-mireqon .fallback-orbit { top: 31%; left: 18%; width: 63%; height: 30%; border-radius: 4px; transform: rotate(-8deg) skewX(-19deg); animation: mireqon-band 6.4s ease-in-out infinite; }
+.product-mireqon .orbit-small { top: 23%; left: 42%; width: 20%; height: 50%; border-radius: 3px; transform: rotate(13deg); animation: mireqon-column 4.7s ease-in-out infinite -1.7s; }
+.product-mireqon .fallback-path.path-one { top: 68%; left: 19%; width: 66%; transform: rotate(-2deg); background: var(--violet); }
+.product-mireqon .fallback-path.path-two { top: 45%; left: 24%; width: 54%; transform: rotate(10deg); background: var(--cyan); }
+.product-mireqon .signal-cursor { animation: mireqon-point 4.3s steps(1,end) infinite; }
+@keyframes mireqon-band { 0%,100% { transform: rotate(-8deg) skewX(-19deg) translate(0,0); } 50% { transform: rotate(-2deg) skewX(-19deg) translate(10px,-9px); } }
+@keyframes mireqon-column { 0%,100% { transform: rotate(13deg) scaleY(.82); } 50% { transform: rotate(-4deg) scaleY(1.16); } }
+@keyframes mireqon-point { 0%,20% { transform: translate(0,68px); } 25%,45% { transform: translate(66px,31px); } 50%,70% { transform: translate(130px,-10px); } 75%,95% { transform: translate(194px,-46px); } 100% { transform: translate(0,68px); } }
+
+/* Terviq / local compute core */
+.product-terviq .fallback-orbit { top: 21%; left: 22%; width: 56%; height: 56%; border-radius: 50%; transform: rotate(0deg) scaleX(1.06); animation: terviq-ring 8s linear infinite; }
+.product-terviq .orbit-small { top: 30%; left: 36%; width: 29%; height: 29%; border-radius: 12%; transform: rotate(45deg); animation: terviq-square 5.5s ease-in-out infinite -1.2s; }
+.product-terviq .fallback-path.path-one { top: 48%; left: 13%; width: 74%; transform: rotate(0deg); background: var(--cyan); opacity: .5; }
+.product-terviq .fallback-path.path-two { top: 22%; left: 50%; width: 51%; transform: rotate(90deg); background: var(--mint); opacity: .74; }
+.product-terviq .signal-cursor { animation: terviq-point 4.9s ease-in-out infinite; }
+@keyframes terviq-ring { to { transform: rotate(360deg) scaleX(1.06); } }
+@keyframes terviq-square { 0%,100% { transform: rotate(45deg) scale(.88); } 50% { transform: rotate(225deg) scale(1.12); } }
+@keyframes terviq-point { 0%,100% { transform: translate(-8px,0); } 25% { transform: translate(70px,-62px); } 50% { transform: translate(170px,-6px); } 75% { transform: translate(81px,66px); } }
+@media (prefers-reduced-motion: reduce) { .principle-mark::before, .principle-mark::after, .principle-signal-dot, .product-qadryn .fallback-orbit, .product-qadryn .orbit-small, .product-qadryn .signal-cursor, .product-vessyra .fallback-orbit, .product-vessyra .orbit-small, .product-vessyra .signal-cursor, .product-mireqon .fallback-orbit, .product-mireqon .orbit-small, .product-mireqon .signal-cursor, .product-terviq .fallback-orbit, .product-terviq .orbit-small, .product-terviq .signal-cursor { animation: none !important; } }
