@@ -549,3 +549,17 @@ body.modal-open { overflow: hidden; }
 
 /* Eryndex brand core｜理念區使用與頁首相同的公司 Logo，保持品牌識別一致。 */
 .principle-brand-mark { width: 44px; height: 44px; object-fit: contain; filter: drop-shadow(0 0 7px rgba(98,231,255,.7)); transform: rotate(-10deg); }
+
+
+/* Site architecture dossier｜將 Skills、AI 視覺、技術與 modal 架構整理成可掃讀的系統卡片。 */
+.making-dossier { position: relative; padding: 118px 0 128px; overflow: hidden; border-top: 1px solid rgba(173,221,236,.08); }
+.making-dossier::before { content: ""; position: absolute; top: 0; right: 18%; width: 1px; height: 100%; background: linear-gradient(transparent, rgba(98,231,255,.2), transparent); }
+.dossier-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 100px; position: relative; z-index: 1; }
+.dossier-intro h2 { margin-top: 18px; font-size: clamp(2.2rem, 4vw, 4.2rem); }
+.dossier-intro > p { max-width: 410px; margin: 26px 0 0; color: #91abb6; font-size: .9rem; line-height: 1.9; }
+.dossier-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dossier-card { min-height: 245px; padding: 25px 25px 28px; border: 1px solid rgba(173,221,236,.16); background: linear-gradient(145deg, rgba(17,46,66,.7), rgba(8,22,37,.82)); transition: border-color 180ms var(--ease-out), transform 180ms var(--ease-out), background 180ms var(--ease-out); }
+.dossier-card:hover { border-color: rgba(98,231,255,.52); background: linear-gradient(145deg, rgba(20,61,82,.76), rgba(8,22,37,.9)); transform: translateY(-3px); }
+.dossier-card h3 { margin: 28px 0 13px; color: #eaf8fa; font-family: "Space Grotesk", "Noto Sans TC", sans-serif; font-size: 1.12rem; letter-spacing: -.02em; }
+.dossier-card > p:last-child { margin: 0; color: #91abb6; font-size: .8rem; line-height: 1.8; }
+@media (max-width: 720px) { .making-dossier { padding: 84px 0 92px; }.dossier-grid { grid-template-columns: 1fr; gap: 44px; }.dossier-columns { grid-template-columns: 1fr; }.dossier-card { min-height: 0; }.dossier-card h3 { margin-top: 20px; } }

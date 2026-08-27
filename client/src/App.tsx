@@ -26,7 +26,7 @@ const navCopy = {
   resources: { "zh-TW": "資源中心", "zh-CN": "资源中心", en: "Resources" },
   contact: { "zh-TW": "聯絡我們", "zh-CN": "联系我们", en: "Contact" },
   demo: { "zh-TW": "預約產品展示", "zh-CN": "预约产品演示", en: "Book a demo" },
-  making: { "zh-TW": "製作說明", "zh-CN": "制作说明", en: "Credits" },
+  making: { "zh-TW": "網站架構", "zh-CN": "网站架构", en: "Site architecture" },
 };
 
 function Header() {
@@ -57,7 +57,7 @@ function Header() {
               <button key={option} className={lang === option ? "lang-option selected" : "lang-option"} onClick={() => setLang(option)} aria-pressed={lang === option}>{langNames[option]}</button>
             ))}
           </div>
-          <Link href="/contact" className="header-cta" onClick={onNav}>{navCopy.demo[lang]} <ArrowUpRight size={15} /></Link>
+          <Link href="/making" className="header-cta" onClick={onNav}>{navCopy.making[lang]} <ArrowUpRight size={15} /></Link>
         </nav>
       </div>
       <div className="header-signal" aria-hidden="true"><span /><span /><span /></div>
