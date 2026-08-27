@@ -1,0 +1,11 @@
+{
+  "task_kind": "new-document",
+  "output": "pdf",
+  "signals": ["executive-report", "cjk"],
+  "hard_constraints": ["trilingual", "downloadable-pdf"],
+  "content_features": {
+    "code_blocks": 0,
+    "defined_terms": 8,
+    "portrait_images": 0
+  }
+}
