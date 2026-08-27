@@ -462,3 +462,23 @@ body.modal-open { overflow: hidden; }
 .visual-terviq .cpu-in-trace { stroke: var(--mint); stroke-dasharray: 3 5; opacity: .48; animation-direction: reverse; }
 .visual-terviq .cpu-dot.cpu-in { fill: var(--mint); stroke: #ecfff9; opacity: .72; filter: drop-shadow(0 0 3px var(--mint)); }
 @media (prefers-reduced-motion: reduce) { .visual-qadryn .process-route, .visual-vessyra .shield-layer, .visual-vessyra .shield-scan, .visual-mireqon .dashboard-bars rect, .visual-mireqon .dashboard-route, .visual-mireqon .dashboard-readouts rect, .visual-terviq .cpu-trace, .visual-terviq .cpu-dot { animation: none !important; } }
+
+
+/* Eryndex product scenes v6｜網格進入防護閘門；流程節點短停；CPU 訊號錯落出入。 */
+.visual-qadryn .process-nodes rect { transform-box: fill-box; transform-origin: center; animation: workflow-node-ready 5.6s ease-in-out infinite; }
+.visual-qadryn .process-nodes rect:nth-child(2) { animation-delay: .9s; }.visual-qadryn .process-nodes rect:nth-child(3) { animation-delay: 1.7s; }.visual-qadryn .process-nodes rect:nth-child(4) { animation-delay: 2.6s; }.visual-qadryn .process-nodes rect:nth-child(5) { animation-delay: 3.4s; }.visual-qadryn .process-nodes rect:nth-child(6) { animation-delay: 4.3s; }
+@keyframes workflow-node-ready { 0%,70%,100% { transform: scale(1); opacity: .62; } 76% { transform: scale(1.45); opacity: 1; } 84% { transform: scale(1); opacity: .8; } }
+.visual-vessyra .security-grid .grid-lines { fill: none; stroke: rgba(105,230,193,.2); stroke-width: .45; stroke-dasharray: 2 5; animation: grid-drift 12s linear infinite; }
+.visual-vessyra .security-grid .grid-sweep { fill: none; stroke: rgba(105,230,193,.6); stroke-width: .7; stroke-dasharray: 9 25; animation: grid-sweep-flow 4.8s linear infinite; }
+.visual-vessyra .gate-frame { fill: none; stroke: var(--cyan); stroke-width: .65; stroke-dasharray: 7 4; transform-box: fill-box; transform-origin: center; }
+.visual-vessyra .gate-one { opacity: .72; animation: gate-check-one 8s ease-in-out infinite; }.visual-vessyra .gate-two { opacity: .46; stroke: var(--violet); animation: gate-check-two 6.5s ease-in-out infinite reverse; }
+@keyframes grid-drift { to { stroke-dashoffset: -42; } }
+@keyframes grid-sweep-flow { to { stroke-dashoffset: -68; } }
+@keyframes gate-check-one { 0%,100% { transform: rotate(0deg) scale(.93); } 50% { transform: rotate(3deg) scale(1.04); } }
+@keyframes gate-check-two { 0%,100% { transform: rotate(0deg) scale(1.04); } 50% { transform: rotate(-4deg) scale(.94); } }
+.visual-terviq .cpu-trace { stroke-linecap: square; stroke-linejoin: bevel; }
+.visual-terviq .cpu-trace:nth-of-type(2n) { stroke-dasharray: 3 6; }
+.visual-terviq .cpu-dot { animation: cpu-signal-glow 2.8s ease-in-out infinite; }
+.visual-terviq .cpu-dot.cpu-in { animation-delay: -1.1s; }
+@keyframes cpu-signal-glow { 0%,100% { opacity: .36; } 48% { opacity: 1; } 56% { opacity: .7; } }
+@media (prefers-reduced-motion: reduce) { .visual-qadryn .process-nodes rect, .visual-vessyra .security-grid .grid-lines, .visual-vessyra .security-grid .grid-sweep, .visual-vessyra .gate-frame, .visual-terviq .cpu-dot { animation: none !important; } }
