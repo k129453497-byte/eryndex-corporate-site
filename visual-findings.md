@@ -35,3 +35,11 @@ Hero 截圖確認首頁主視覺的綠色與紫色訊號點仍以 Hero orbit 子
 ## 完整 Skills 盤點檢查
 
 製作說明頁的 Skills 區已補充實際使用項目（imagegen、webdev-readme-static），並列出直接相關但本案未啟用的 read-special-images、typst-pdf-maker、builtin-llm-models、manus-api、automation-and-scheduling、persistent-computing；同時說明完全無關 Skills 刻意排除。桌機 modal 首屏維持可讀，頁首入口與關閉控制正常。
+
+## Skills 與 WCAG 說明頁更新檢查
+
+桌機與 390px 手機版首屏均能正常開啟製作說明 modal，關閉控制可見，標題與說明文字沒有裁切或橫向溢出。Skills 表格已改為列出本網站相關的完整工作流，不再使用「未啟用」分類；新增 WCAG 2 摘要並誠實標示為已實作部分準則、尚未完成正式 WCAG 2.1／2.2 一致性稽核。
+
+## 主管版 Skills 全景檢查
+
+更新後桌機與 390px 手機版製作說明 modal 首屏均正常顯示。新增的品牌策略、網站建置、內容在地化、互動動效、品質部署、視覺生成、圖片來源、WCAG 2 與字體圖示分類已納入製作紀錄表；Skills 區改以本案涵蓋的完整能力全景呈現，不再另列「未啟用」分類。WCAG 2 文字仍明確說明目前不宣稱完成正式 WCAG 2.1／2.2 一致性稽核。
