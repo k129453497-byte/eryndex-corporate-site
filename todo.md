@@ -51,3 +51,23 @@
 - [x] 補上 GitHub Pages 的 SPA fallback 與必要靜態資產處理。
 - [x] 推送 workflow 並等待部署完成。
 - [x] 驗證公開 github.io 網址、首頁資產與 modal 導覽。
+
+## 第三版重新設計：工業控制台方向
+
+- [ ] 排除 Tactile Grid 的紙面留白、細網格、座標與編輯型大標題。
+- [ ] 建立深色工業控制台、設備模組、狀態面板與垂直導覽語彙。
+- [ ] 重新設計第三版首頁、產品呈現、解決方案與製作說明介面。
+- [ ] 保留第一版 Signal Atelier 與第二版 Tactile Grid，不修改既有網址。
+- [ ] 生成第三版專用視覺資產並完成新網址部署。
+
+## 第一版公開版本恢復
+
+- [x] 將 GitHub Pages 公開內容恢復為 checkpoint `c907e48e` 的深藍 Signal Atelier 版本。
+- [x] 確認第一版恢復不會修改第二版 Tactile Grid 與第三版 Industrial Control。
+- [x] 重新執行第一版部署並驗證公開網址的深藍背景、Signal Cyan、SVG 動態與 modal 架構。
+
+## 版本暫停決策
+
+- [ ] 暫停第二版 Tactile Grid：未獲使用者重新確認前，不修改、不重新部署。
+- [ ] 暫停第三版 Industrial Control：未獲使用者重新確認前，不修改、不重新部署。
+- [ ] 第一版 Signal Atelier 維持深藍 checkpoint `c907e48e`，不再修改。
