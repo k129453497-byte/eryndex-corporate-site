@@ -1,4 +1,4 @@
-// Eryndex Signal Atelier｜全站外框。固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口。
+// Eryndex Signal Atelier｜全站外框固定導覽、資料流細線與清楚出口優先於裝飾，確保每一頁都能快速回到產品或聯絡入口
 import { useEffect, useState } from "react";
 import { Link, Route, Switch, Router as WouterRouter, useLocation } from "wouter";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -72,7 +72,7 @@ function Footer() {
             <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
             <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
-          <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長。" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长。" : "Let technology understand work, so businesses can focus on growth."}</p>
+          <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长" : "Let technology understand work, so businesses can focus on growth"}</p>
         </div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Explore" : lang === "zh-CN" ? "探索" : "探索"}</p><Link href="/about">{navCopy.about[lang]}</Link><Link href="/products">{navCopy.products[lang]}</Link><Link href="/solutions">{navCopy.solutions[lang]}</Link><Link href="/resources">{navCopy.resources[lang]}</Link></div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Connect" : lang === "zh-CN" ? "联系" : "聯絡"}</p><Link href="/contact">{navCopy.contact[lang]}</Link><a href="mailto:hello@eryndex.example">hello@eryndex.example</a><span>+886 2 7700 2840</span></div>
