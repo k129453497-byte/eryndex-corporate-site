@@ -74,3 +74,20 @@
 - [x] 將 grill-me 補進三語網站 Skills 文案。
 - [x] 同步修改 Signal Atelier PDF 內容並重新上傳資產。
 - [x] 驗證網站、PDF、build 與 GitHub Pages 部署。
+
+## GitHub Pages 404 診斷
+
+- [x] 查詢 repository 可見性、Pages API 設定與部署 URL。
+- [x] 檢查最新 workflow、artifact 與 deployment 狀態。
+- [x] 確認 github.io 網址與 repository owner／name 是否一致。
+- [x] 修正 Pages 設定或部署流程並重新觸發。
+- [x] 驗證首頁、製作說明 modal 路由與 PDF 下載連結。
+
+## 第二視覺方案：明亮編輯型企業系統
+
+- [ ] 保留現有 Signal Atelier 版本並建立可辨識的新版設計決策紀錄。
+- [ ] 完成第二套視覺提案，避免沿用深色科技／霓虹訊號語彙。
+- [ ] 生成新版 Hero、品牌圖形與必要的高品質視覺資產。
+- [ ] 重做首頁、產品卡片、解決方案、製作說明與共用元件視覺層。
+- [ ] 維持三語、modal 導覽、產品專屬動畫、表單與 WCAG 實作。
+- [ ] 驗證桌機／手機版、production build、GitHub Pages，並保存新版本 checkpoint。
