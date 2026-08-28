@@ -38,7 +38,7 @@ function Header() {
     <header className="site-header">
       <div className="header-inner">
         <Link href="/" className="brand" onClick={onNav} aria-label="Eryndex 智序科技 home">
-          <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
+          <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-logo-light-signal_53d6e599.png" alt="" /></span>
           <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
         </Link>
         <button className="mobile-menu" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation" : "Open navigation"} aria-expanded={open}>
@@ -69,7 +69,7 @@ function Footer() {
       <div className="container footer-grid">
         <div className="footer-brand-col">
           <Link href="/" className="brand footer-brand">
-            <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-mark-dark_0e671042.png" alt="" /></span>
+            <span className="brand-mark-wrap" aria-hidden="true"><img src="https://nexoracorp-mfb35dfs.manus.space/manus-storage/eryndex-logo-light-signal_53d6e599.png" alt="" /></span>
             <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
           <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长" : "Let technology understand work, so businesses can focus on growth"}</p>
