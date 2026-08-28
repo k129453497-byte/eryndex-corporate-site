@@ -40,7 +40,7 @@ PDF 涵蓋品牌定位、單頁 modal 架構、四項產品系統、產品專屬
 
 ## Reference and production notes
 
-網站製作說明頁列出 Space Grotesk、Noto Sans TC、Lucide Icons、W3C WCAG 2、React、TypeScript、Vite、Tailwind CSS 與 MDN SVG animateMotion 等公開參考來源及用途。Manus 內建 AI 圖片生成用於原創品牌符號與首頁氛圍主視覺；Signal Atelier 視覺語言、產品 SVG 場景與三語文案則為本案製作內容。
+網站製作說明頁列出 Plus Jakarta Sans、Noto Sans TC、Lucide Icons、W3C WCAG 2、React、TypeScript、Vite、Tailwind CSS 與 MDN SVG animateMotion 等公開參考來源及用途。Manus 內建 AI 圖片生成用於原創品牌符號與首頁氛圍主視覺；Signal Atelier 視覺語言、產品 SVG 場景與三語文案則為本案製作內容。
 
 公開來源不代表 Eryndex 與來源之間存在合作、授權背書或商業關係。網站未使用現成品牌 Logo、真人肖像或外部圖片作為主要視覺，也未宣稱真實客戶、營收、市占率或絕對安全等未經證實的成果。
 

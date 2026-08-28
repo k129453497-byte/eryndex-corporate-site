@@ -82,7 +82,7 @@ function Footer() {
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Connect" : lang === "zh-CN" ? "联系" : "聯絡"}</p><Link href="/contact">{navCopy.contact[lang]}</Link><a href="mailto:hello@eryndex.example">hello@eryndex.example</a><span>+886 2 7700 2840</span></div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Notes" : lang === "zh-CN" ? "说明" : "說明"}</p><Link href="/making">{navCopy.making[lang]}</Link><span>{lang === "en" ? "Demo content only" : lang === "zh-CN" ? "仅供演示" : "僅供示範"}</span><span>© 2026 Eryndex</span></div>
       </div>
-      <div className="container footer-bottom"><span>台北 · Taipei</span><span>EDX / 2026.08</span></div>
+      <div className="container footer-bottom"><span>台北 · Taipei</span></div>
     </footer>
   );
 }
