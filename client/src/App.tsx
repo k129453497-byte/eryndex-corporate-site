@@ -14,7 +14,6 @@ import {
   NotFoundPage,
   ProductDetailPage,
   ProductsPage,
-  ProductionPage,
   ResourcesPage,
   SolutionsPage,
 } from "./pages/Home";
@@ -26,7 +25,6 @@ const navCopy = {
   resources: { "zh-TW": "資源中心", "zh-CN": "资源中心", en: "Resources" },
   contact: { "zh-TW": "聯絡我們", "zh-CN": "联系我们", en: "Contact" },
   demo: { "zh-TW": "預約產品展示", "zh-CN": "预约产品演示", en: "Book a demo" },
-  making: { "zh-TW": "網站架構", "zh-CN": "网站架构", en: "Site architecture" },
 };
 
 function Header() {
@@ -57,7 +55,6 @@ function Header() {
               <button key={option} className={lang === option ? "lang-option selected" : "lang-option"} onClick={() => setLang(option)} aria-pressed={lang === option}>{langNames[option]}</button>
             ))}
           </div>
-          <Link href="/making" className="header-cta" onClick={onNav}>{navCopy.making[lang]} <ArrowUpRight size={15} /></Link>
         </nav>
       </div>
       <div className="header-signal" aria-hidden="true"><span /><span /><span /></div>
@@ -76,11 +73,10 @@ function Footer() {
             <span className="brand-lockup"><strong>Eryndex</strong><small>智序科技</small></span>
           </Link>
           <p>{lang === "zh-TW" ? "讓科技理解工作，讓企業專注成長。" : lang === "zh-CN" ? "让科技理解工作，让企业专注成长。" : "Let technology understand work, so businesses can focus on growth."}</p>
-          <div className="footer-status"><i /> {lang === "en" ? "Systems designed for the work ahead" : lang === "zh-CN" ? "为未来工作而设计的系统" : "為下一步工作而設計的系統"}</div>
         </div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Explore" : lang === "zh-CN" ? "探索" : "探索"}</p><Link href="/about">{navCopy.about[lang]}</Link><Link href="/products">{navCopy.products[lang]}</Link><Link href="/solutions">{navCopy.solutions[lang]}</Link><Link href="/resources">{navCopy.resources[lang]}</Link></div>
         <div className="footer-col"><p className="footer-label">{lang === "en" ? "Connect" : lang === "zh-CN" ? "联系" : "聯絡"}</p><Link href="/contact">{navCopy.contact[lang]}</Link><a href="mailto:hello@eryndex.example">hello@eryndex.example</a><span>+886 2 7700 2840</span></div>
-        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Notes" : lang === "zh-CN" ? "说明" : "說明"}</p><Link href="/making">{navCopy.making[lang]}</Link><span>{lang === "en" ? "Demo content only" : lang === "zh-CN" ? "仅供演示" : "僅供示範"}</span><span>© 2026 Eryndex</span></div>
+        <div className="footer-col"><p className="footer-label">{lang === "en" ? "Notes" : lang === "zh-CN" ? "说明" : "說明"}</p><span>{lang === "en" ? "Demo content only" : lang === "zh-CN" ? "仅供演示" : "僅供示範"}</span><span>© 2026 Eryndex</span></div>
       </div>
       <div className="container footer-bottom"><span>台北 · Taipei</span></div>
     </footer>
@@ -97,7 +93,6 @@ function SiteRoutes() {
       <Route path="/solutions" component={SolutionsPage} />
       <Route path="/resources" component={ResourcesPage} />
       <Route path="/contact" component={ContactPage} />
-      <Route path="/making" component={ProductionPage} />
       <Route path="/404" component={NotFoundPage} />
       <Route component={NotFoundPage} />
     </Switch>

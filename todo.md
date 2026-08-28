@@ -71,3 +71,18 @@
 - [ ] 暫停第二版 Tactile Grid：未獲使用者重新確認前，不修改、不重新部署。
 - [ ] 暫停第三版 Industrial Control：未獲使用者重新確認前，不修改、不重新部署。
 - [ ] 第一版 Signal Atelier 維持深藍 checkpoint `c907e48e`，不再修改。
+
+## 第一版訪客內容清理完成
+
+- [x] 移除 EDX 內部前綴與工程性標籤。
+- [x] 移除 SIGNAL READY、PRODUCT SIGNAL、即時統計、座標與版本日期等非必要內容。
+- [x] 移除產品視覺重複編號，保留唯一的產品順序標示。
+- [x] 同步更新 Plus Jakarta Sans 字體參考與 README。
+- [x] TypeScript、production build、GitHub Pages 部署與公開頁面驗證完成。
+
+## 第一版訪客必要資訊優先清理
+
+- [ ] 盤點並保留公司定位、產品名稱、產品用途、功能、適用對象、聯絡方式與必要 CTA。
+- [ ] 移除不影響訪客理解的裝飾標語、內部標籤、數字編號、模擬狀態、重複說明與製作紀錄文字。
+- [ ] 保留必要的示範內容聲明、表單錯誤提示、語言切換與 modal 關閉提示。
+- [ ] 完成三語、modal、表單、響應式與 GitHub Pages 驗證後再發布。
