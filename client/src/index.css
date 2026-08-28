@@ -898,37 +898,3 @@ body { background: var(--paper); color: var(--ink); font-family: "Noto Sans TC",
   .making-row p, .making-lede > p, .reference-note p { color: #3e4b53 !important; }
   a { color: #1847d1; }
 }
-
-
-/* TYPOGRAPHY PASS: Editorial Authority — Noto Serif headings for a high-end institutional voice; Manrope + Noto Sans for precise bilingual UI. Product copy stays unchanged. */
-:root {
-  --display-font: "Noto Serif TC", "Noto Serif SC", Georgia, serif;
-  --ui-font: "Manrope", "Noto Sans TC", "Noto Sans SC", sans-serif;
-  --body-font: "Noto Sans TC", "Noto Sans SC", sans-serif;
-}
-body, button, input, select, textarea { font-family: var(--body-font); }
-.brand-lockup strong, .nav-link, .lang-option, .header-cta, .eyebrow, .button, .product-number, .image-index, .card-category, .text-link, .arrow-link, .solution-number, .solution-detail-label span, .value-index, .mini-label, .footer-label, .footer-status, .footer-bottom, .dossier-download span, .reference-links a, .hero-foot, .hero-coordinate, .console-top, .console-bottom { font-family: var(--ui-font); }
-.hero-copy h1, .page-header h1, .section-heading h2, .principle-copy h2, .about-practice h2, .detail-sticky h2, .contact-aside h2, .form-heading h2, .making-lede h2, .references-grid h2, .not-found h1, .cta-inner h2, .faq-section h2, .statement-big, .detail-copy h1, .detail-copy h2, .solution-detail-copy h2 { font-family: var(--display-font); font-weight: 700; letter-spacing: -.055em; }
-.hero-copy h1 { max-width: 690px; font-size: clamp(3.7rem, 8vw, 7.4rem); line-height: .98; }
-.hero-copy h1 em, .page-header h1 em, h2 em { position: relative; color: var(--cobalt); font-style: normal; }
-.hero-copy h1 em::after, .page-header h1 em::after { content: ""; position: absolute; z-index: -1; right: .03em; bottom: .04em; left: .03em; height: .12em; background: rgba(240,100,58,.38); transform: rotate(-1deg); }
-.section-heading h2, .principle-copy h2, .about-practice h2, .making-lede h2, .references-grid h2 { font-size: clamp(2.65rem, 5vw, 5rem); line-height: 1.08; }
-.product-card h3, .article-card h3 { font-family: var(--ui-font); font-weight: 700; letter-spacing: -.04em; }
-.product-card h3 { font-size: 1.45rem; }
-.detail-copy h1 { font-size: clamp(3.7rem, 6.5vw, 6.8rem); }
-.detail-copy h2 { font-family: var(--ui-font); font-weight: 600; letter-spacing: -.045em; }
-.solution-title, .solution-detail-copy h2, .value-cell h3, .detail-section h3 { font-family: var(--ui-font); font-weight: 700; letter-spacing: -.035em; }
-.hero-lede, .split-heading > p, .page-intro, .product-card-content > p:not(.card-category), .detail-copy > p, .detail-problem, .detail-section, .contact-aside > p, .making-lede > p, .references-intro, .statement-side p:last-child, .practice-list p, .faq-section > .container > div:first-child > p { font-family: var(--body-font); }
-.hero-lede { max-width: 540px; font-size: 1.02rem; line-height: 1.95; }
-.brand-lockup strong { font-weight: 700; letter-spacing: .08em; }
-.nav-link { font-weight: 600; letter-spacing: -.015em; }
-.button { font-weight: 700; letter-spacing: .01em; }
-.product-number, .image-index, .eyebrow, .mini-label, .value-index, .footer-label { font-weight: 700; }
-.statement-big { font-size: clamp(2.7rem, 5vw, 5.2rem); line-height: 1.08; }
-.not-found h1 { font-size: clamp(7rem, 19vw, 14rem); }
-@media (max-width: 720px) {
-  .hero-copy h1, .page-header h1 { font-size: clamp(3.45rem, 16vw, 5.25rem); line-height: 1.01; }
-  .section-heading h2, .principle-copy h2, .about-practice h2, .making-lede h2, .references-grid h2 { font-size: clamp(2.55rem, 11vw, 4rem); }
-  .detail-copy h1 { font-size: clamp(3.5rem, 17vw, 5.2rem); }
-  .statement-big { font-size: clamp(2.55rem, 11vw, 4.2rem); }
-}
