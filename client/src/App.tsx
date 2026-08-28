@@ -29,10 +29,8 @@ const navCopy = {
 
 function Header() {
   const { lang, setLang } = useSite();
-  const [location] = useLocation();
   const [open, setOpen] = useState(false);
   const onNav = () => setOpen(false);
-  const isActive = (href: string) => href === "/" ? location === href : location.startsWith(href);
 
   return (
     <header className="site-header">
@@ -45,10 +43,10 @@ function Header() {
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
         <nav className={open ? "main-nav is-open" : "main-nav"} aria-label="Primary navigation">
-          <Link href="/about" className={isActive("/about") ? "nav-link active" : "nav-link"} onClick={onNav}>{navCopy.about[lang]}</Link>
-          <Link href="/products" className={isActive("/products") ? "nav-link active" : "nav-link"} onClick={onNav}>{navCopy.products[lang]}</Link>
-          <Link href="/solutions" className={isActive("/solutions") ? "nav-link active" : "nav-link"} onClick={onNav}>{navCopy.solutions[lang]}</Link>
-          <Link href="/resources" className={isActive("/resources") ? "nav-link active" : "nav-link"} onClick={onNav}>{navCopy.resources[lang]}</Link>
+          <a href="/#about" className="nav-link" onClick={onNav}>{navCopy.about[lang]}</a>
+          <a href="/#products" className="nav-link" onClick={onNav}>{navCopy.products[lang]}</a>
+          <a href="/#solutions" className="nav-link" onClick={onNav}>{navCopy.solutions[lang]}</a>
+          <a href="/#resources" className="nav-link" onClick={onNav}>{navCopy.resources[lang]}</a>
           <div className="nav-divider" aria-hidden="true" />
           <div className="language-switch" role="group" aria-label="Language selector">
             {(Object.keys(langNames) as Lang[]).map((option) => (

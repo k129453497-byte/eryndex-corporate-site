@@ -61,6 +61,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; background: var(--navy); }
+section[id] { scroll-margin-top: 86px; }
 body { margin: 0; min-width: 320px; background: var(--navy); color: var(--foreground); font-family: "Noto Sans TC", "Noto Sans SC", sans-serif; -webkit-font-smoothing: antialiased; }
 body, button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -345,6 +346,22 @@ body.modal-open { overflow: hidden; }
 .product-terviq .ai-pulse { border-color: rgba(98,231,255,.58); }
 @media (max-width: 720px) { .symbol-qadryn, .symbol-vessyra, .symbol-mireqon, .symbol-terviq { transform: scale(.92) rotate(45deg); } .symbol-vessyra { transform: scale(.92) translateY(5px); } .symbol-mireqon { transform: scale(.92) translate(-2px,10px); } }
 @media (prefers-reduced-motion: reduce) { .product-qadryn .signal-cursor, .product-vessyra .signal-cursor, .product-mireqon .signal-cursor, .product-terviq .signal-cursor { animation: none !important; offset-distance: 0%; } }
+
+/* Typography refinement: keep the brand-led hierarchy while reducing desktop headline dominance. */
+@media (min-width: 1001px) {
+  .hero-copy h1 { font-size: clamp(3rem, 5.4vw, 5.5rem); }
+  .section-heading h2, .principle-copy h2, .about-practice h2, .detail-sticky h2, .contact-aside h2, .form-heading h2, .making-lede h2, .references-grid h2 { font-size: clamp(2.25rem, 4vw, 3.75rem); }
+  .page-header h1 { font-size: clamp(3rem, 5.2vw, 5.2rem); }
+  .detail-copy h1 { font-size: clamp(3rem, 4.5vw, 5.2rem); }
+  .detail-copy h2 { font-size: clamp(1.3rem, 2vw, 1.9rem); }
+}
+
+@media (max-width: 720px) {
+  .hero-copy h1, .page-header h1 { font-size: clamp(3rem, 13vw, 4.3rem); }
+  .section-heading h2, .principle-copy h2, .about-practice h2, .detail-sticky h2, .contact-aside h2, .making-lede h2, .references-grid h2 { font-size: clamp(2.1rem, 9.2vw, 3.2rem); }
+  .detail-copy h1 { font-size: clamp(3rem, 13vw, 4.3rem); }
+  .detail-copy h2 { font-size: 1.3rem; }
+}
 
 
 /* Eryndex hero orbit nodes｜訊號點是軌道的子元素，位移半徑直接取自各軌道尺寸，確保真正貼著線跑。 */
