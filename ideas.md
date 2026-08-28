@@ -14,7 +14,7 @@ Probability: 0.03
 Very Brief Intro: 以暖灰底色、珊瑚橘與深藍作為對比，將企業工作流程視為可被理解的共同空間。親和但不失科技感，適合強調導入體驗的成長型服務。
 Probability: 0.08
 
-## 舊版方向：Signal Atelier（保留）
+## 選定方向：Signal Atelier
 
 ### Design Movement
 現代企業數位主義（Contemporary Corporate Digitalism），融合 Swiss International Typographic Style 的資訊秩序、editorial layout 的節奏，以及低飽和的 data-visualisation 語彙。
@@ -69,10 +69,6 @@ Logo 使用由四個切角模組組成的抽象「N」符號：兩條垂直資�
 
 ## Style Decisions
 
-- 主管比較版本：Signal Atelier 深色版本保留於既有 checkpoint；Luminous Operations Journal 是目前執行中的第二套明亮編輯型企業系統方案。
-- Luminous Operations Journal 的淺色畫布、鈷藍與訊號橘可主導 Hero 與產品入口；不套用舊版 Signal Atelier 的深色／霓虹限制。
-
-
 - 深色企業數位主義是全站唯一主視覺方向；不使用紫色漸層作為大面積背景。
 - 生成圖片僅用在 hero 與四項產品主視覺，其他區域以 CSS 圖形與內容排版承擔資訊，不重複使用同一張主圖。
 - 所有主要互動需兼顧鍵盤操作、可見 focus ring、足夠文字對比與 reduced-motion。
@@ -80,48 +76,3 @@ Logo 使用由四個切角模組組成的抽象「N」符號：兩條垂直資�
 - Signal Cyan `#62E7FF` reserved for actions, selected states, signal nodes, key terms, and important numerals; large headline coloration is used only when the highlighted word is the conceptual turning point.
 - Every product visual must be a distinct abstract system diagram or glass-console state for that product, not a generic tech image block, while sharing the same Eryndex rails, nodes, labels, and dark material language. If generated media is unavailable, the product-specific CSS signal diagram preserves this requirement without exposing an error state.
 - Secondary light-background sections are documentation mode only and retain Eryndex’s signal rail, system-label, and thin-line information structure.
-
-
-## 目前執行方向：Luminous Operations Journal
-
-### Design Movement
-瑞士編輯設計與當代企業軟體藝術指導的融合：以明亮紙張感畫布、嚴謹字級層次、寬闊留白與有節奏的資訊帶，取代深色科幻控制室。
-
-### Core Principles
-1. **編輯式清晰**：每個區塊像高端年度報告中的一個版面，有明確邊界、標題、註記與閱讀順序。
-2. **務實的溫度**：以礦物象牙白、石墨、鈷藍與訊號橘，讓 AI 顯得可信、實用且有人尺度。
-3. **結構化非對稱**：以左右分欄、偏移產品卡與寬闊留白取代置中的 Hero 模板。
-4. **證據優先**：透過流程圖、狀態標籤與介面片段說明系統價值，不依賴發光特效。
-
-### Color Philosophy
-礦物象牙白與柔霧灰代表開放、可讀與主管審閱的舒適度；石墨色穩定文字與結構；鈷藍代表智慧與信任；訊號橘只標示行動、變化與重要節點。整體像高端策略出版物轉化成企業軟體，而不是一般 SaaS 模板。
-
-### Layout Paradigm
-採用垂直編輯文件結構：左側是章節編號與脈絡，中間是主要敘事，右側是偏移的證據面板。產品模組交替排列，穿插滿版色帶、窄欄註記與可在手機橫向閱讀的資訊列。
-
-### Signature Elements
-大型 Eryndex monogram 水印、以鈷藍細線搭配訊號橘索引標記，以及將產品主張與小型流程圖／介面片段／資料標籤結合的產品卡。
-
-### Interaction Philosophy
-互動像翻閱一本設計精準的營運手冊：快速、清楚、有目的。Hover 顯示證據註記，產品卡開啟 modal dossier，表單動作在同一視區提供明確確認，不使用戲劇化動畫。
-
-### Animation
-按鈕、卡片與 modal 使用 160–280ms ease-out；重要區塊可使用線條繪製、數字淡入與水平遮罩揭示。取消持續軌道旋轉與環境粒子。啟用 reduced motion 時改用即時顯示，所有資訊仍保留在靜態畫面。
-
-### Typography System
-英文標題使用 **Space Grotesk**，中英文介面使用 **Noto Sans TC / SC**；採用編輯型字級：緊湊但醒目的 Display、14–16px 內文、11px 大寫系統標籤，以及等寬數字。避免 Inter 與未設定的預設字體。
-
-### Brand Essence
-Eryndex 是為需要更清晰、更安全、更容易採取行動的成長型企業打造的實用智慧層。人格：**精準、沉著、安靜地前瞻**。
-
-### Brand Voice
-標題直接而有用，CTA 說明下一步，不承諾空泛轉型。示例：「把複雜工作整理成下一步。」／「Turn operational noise into a decision.」
-
-### Wordmark & Logo
-保留 Eryndex 自製標誌，但改以淺色系統呈現：石墨字標、鈷藍 monogram，以及作為註冊標記的細小訊號橘索引缺口。絕不使用未設計的預設文字 Logo。
-
-### Signature Brand Color
-**Eryndex Cobalt — #1847D1**，作為礦物象牙白與石墨之間的品牌識別錨點，僅在重要資訊與行動上使用。
-
-### Versioning Decision
-這是與 Signal Atelier 並行的第二視覺方向。現有深色版本保留於先前 WebDev checkpoint 與 Git 歷史中；新版必須能與舊版直接比較。
